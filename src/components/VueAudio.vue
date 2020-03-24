@@ -23,7 +23,7 @@
           </v-icon>
         </v-btn>
       </v-card-text>
-      <div
+      <v-card-text
         v-text="title"
         class="text-center title"
       />
@@ -40,8 +40,7 @@
             <v-progress-linear
               v-model="percentage"
               class="d-block"
-              height="5"
-              style="margin-top: 8px; margin-bottom: 8px;"
+              height="10"
               @click.native="setPosition()"
               :disabled="!loaded"
             />
@@ -61,7 +60,7 @@
       <v-menu offset-y>
         <template v-slot:activator="{ on }">
           <v-btn
-            color="primary"
+            color="red"
             dark
             v-on="on"
           >
