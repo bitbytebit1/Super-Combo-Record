@@ -63,7 +63,8 @@ export default {
       let menuItems = [
         { icon: 'search', text: 'Home', link: '/' },
         { icon: 'face', text: 'About us', link: '/about' },
-        { icon: 'audiotrack', text: 'Beat store', link: '/beat-store' }
+        { icon: 'audiotrack', text: 'Beat store', link: '/beat-store' },
+        { icon: 'audiotrack', text: 'Merchandise', link: '/merchandise' }
       ]
       if (this.userIsAuthenticated) {
         menuItems = [

@@ -1,76 +1,86 @@
 <template>
-  <v-card style="text-align: center">
-    <v-card-title v-text="title" />
+  <v-card>
     <v-card-text>
-      <v-btn
-        outlined
-        icon
-        class="ma-2"
-        :color="color"
-        @click.native="playing ? pause() : play()"
-        :disabled="!loaded"
+      <v-card-text
+        v-ripple
+        class="grey dark song-image d-flex "
+        style="display:flex;justify-content:center;align-items:center;"
+        @click="playing ? pause() : play()"
       >
-        <v-icon v-if="!playing || paused">
-          mdi-play
-        </v-icon>
-        <v-icon v-else>
-          mdi-pause
-        </v-icon>
-      </v-btn>
-      <v-btn
-        outlined
-        icon
-        class="ma-2"
-        :color="color"
-        @click.native="stop()"
-        :disabled="!loaded"
-      >
-        <v-icon>mdi-stop</v-icon>
-      </v-btn>
-      <v-btn
-        outlined
-        icon
-        class="ma-2"
-        :color="color"
-        @click.native="mute()"
-        :disabled="!loaded"
-      >
-        <v-icon v-if="!isMuted">
-          mdi-volume-high
-        </v-icon>
-        <v-icon v-else>
-          mdi-volume-mute
-        </v-icon>
-      </v-btn>
-      <v-btn
-        outlined
-        icon
-        class="ma-2"
-        :color="color"
-        @click.native="loaded ? download() : reload()"
-        v-if="!loaded"
-      >
-        <v-icon>mdi-refresh</v-icon>
-      </v-btn>
-      <v-btn
-        outlined
-        icon
-        class="ma-2"
-        :color="color"
-        @click.native="loaded ? download() : reload()"
-        v-if="loaded && downloadable"
-      >
-        <v-icon>mdi-download</v-icon>
-      </v-btn>
-      <v-progress-linear
-        v-model="percentage"
-        height="5"
-        style="margin-top: 15px; margin-bottom: 15px;"
-        @click.native="setPosition()"
-        :disabled="!loaded"
+        <v-btn
+          class="d-inline-block white--text"
+          outlined
+          x-large
+          icon
+          color="black"
+          :disabled="!loaded"
+        >
+          <v-icon v-if="!playing || paused">
+            mdi-play
+          </v-icon>
+          <v-icon v-else>
+            mdi-pause
+          </v-icon>
+        </v-btn>
+      </v-card-text>
+      <div
+        v-text="title"
+        class="text-center title"
       />
-      <p>{{ currentTime }} / {{ duration }}</p>
+
+      <div>
+        <v-row
+          no-gutters
+          class="text-center"
+        >
+          <v-col>
+            {{ currentTime }}
+          </v-col>
+          <v-col>
+            <v-progress-linear
+              v-model="percentage"
+              class="d-block"
+              height="5"
+              style="margin-top: 8px; margin-bottom: 8px;"
+              @click.native="setPosition()"
+              :disabled="!loaded"
+            />
+          </v-col>
+          <v-col>
+            {{ duration }}
+          </v-col>
+        </v-row>
+      </div>
+
+      <v-card-text
+        v-text="price"
+        class="text-center red--text subtitle-1"
+      />
     </v-card-text>
+    <div class="text-center pb-4">
+      <v-menu offset-y>
+        <template v-slot:activator="{ on }">
+          <v-btn
+            color="primary"
+            dark
+            v-on="on"
+          >
+            Purchase
+          </v-btn>
+        </template>
+        <v-list>
+          <v-list-item @click="true">
+            <v-list-item-title>MP3 with intro</v-list-item-title>
+          </v-list-item>
+          <v-list-item @click="true">
+            <v-list-item-title>WAV with intro</v-list-item-title>
+          </v-list-item>
+          <v-list-item @click="true">
+            <v-list-item-title>Project files without intro</v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-menu>
+    </div>
     <audio
       id="player"
       ref="player"
@@ -81,10 +91,14 @@
   </v-card>
 </template>
 <script>
-const formatTime = second => new Date(second * 1000).toISOString().substr(11, 8)
+const formatTime = second => new Date(second * 1000).toISOString().substr(14, 5)
 export default {
   name: 'VuetifyAudio',
   props: {
+    price: {
+      type: String,
+      default: null
+    },
     title: {
       type: String,
       default: null
@@ -127,7 +141,7 @@ export default {
       playing: false,
       paused: false,
       percentage: 0,
-      currentTime: '00:00:00',
+      currentTime: '00:00',
       audio: undefined,
       totalDuration: 0
     }
@@ -197,7 +211,7 @@ export default {
         }
       }
       if (e.type === 'pause' && this.paused === false && this.playing === false) {
-        this.currentTime = '00:00:00'
+        this.currentTime = '00:00'
       }
     },
     _handleEnded () {
@@ -224,3 +238,8 @@ export default {
   }
 }
 </script>
+<style>
+.song-image{
+  height: 191px;
+}
+</style>

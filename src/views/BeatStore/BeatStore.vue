@@ -15,22 +15,15 @@
       <v-row>
         <v-col cols="8">
           <v-row>
-            <v-col cols="6">
+            <v-col
+              cols="6"
+              v-for="(song, i) in songs"
+              :key="i"
+            >
               <VueAudio
-                title="Victory"
-                :file="require('@/assets/test.mp3')"
-              />
-            </v-col>
-            <v-col cols="6">
-              <VueAudio
-                title="Victory"
-                :file="require('@/assets/test.mp3')"
-              />
-            </v-col>
-            <v-col cols="6">
-              <VueAudio
-                title="Victory"
-                :file="require('@/assets/test.mp3')"
+                :title="song.title"
+                :file="require(`@/assets/Songs/${song.file}`)"
+                :price="song.price"
               />
             </v-col>
           </v-row>
@@ -41,16 +34,22 @@
               cols="12"
               class="display-1 font-weight-bold grey--text lighten-1"
             >
-              Cart
+              About
             </v-col>
             <v-col cols="12">
               <v-divider />
             </v-col>
             <v-col
               cols="12"
-              class="grey darken-3"
+              class="grey darken-3 pre"
             >
-              Your cart is empty
+              All beats available for purchase.<br><br>
+
+              We offer several different price points to support all budgets and needs<br><br>
+
+              MP3 with intro<br>
+              WAV with intro<br>
+              Project files and WAV without intro<br>
             </v-col>
           </v-row>
         </v-col>
@@ -64,10 +63,28 @@ import VueAudio from '@/components/VueAudio.vue'
 export default {
   components: {
     VueAudio
+  },
+  data () {
+    return {
+      songs: [
+        { title: 'Acid Vice', file: 'Acid Vice.mp3', price: '£10.99' },
+        { title: 'Devils Piano', file: 'Devils Piano.mp3', price: '£10.99' },
+        { title: 'Graveyard', file: 'Graveyard.mp3', price: '£10.99' },
+        { title: 'Legendary', file: 'Legendary MP3 Tagged.mp3', price: '£10.99' },
+        { title: 'Lotion', file: 'Lotion.mp3', price: '£10.99' },
+        { title: 'Low Lifes', file: 'Low Lifes Tagged.mp3', price: '£10.99' },
+        { title: 'Power House', file: 'Power House.mp3', price: '£10.99' },
+        { title: 'Sandman', file: 'Sandman.mp3', price: '£10.99' },
+        { title: 'Slow ride', file: 'Slow ride MP3 Tagged.mp3', price: '£10.99' },
+        { title: 'Winning ', file: 'Winning .mp3', price: '£10.99' }
+      ]
+    }
   }
 }
 </script>
 
 <style>
-
+.pre{
+  white-space: pre-line;
+}
 </style>
