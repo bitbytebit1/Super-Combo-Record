@@ -1,25 +1,8 @@
 <template>
-  <v-card>
+  <v-card style="text-align: center">
+    <v-card-title v-text="title" />
     <v-card-text>
-      <div class="song-image ma-auto">
-        <v-btn
-          outlined
-          x-large
-          icon
-          color="black"
-          @click.native="playing ? pause() : play()"
-          :disabled="!loaded"
-        >
-          <v-icon v-if="!playing || paused">
-            mdi-play
-          </v-icon>
-          <v-icon v-else>
-            mdi-pause
-          </v-icon>
-        </v-btn>
-      </div>
-      <v-card-title v-text="title" />
-      <!-- <v-btn
+      <v-btn
         outlined
         icon
         class="ma-2"
@@ -78,30 +61,15 @@
         v-if="loaded && downloadable"
       >
         <v-icon>mdi-download</v-icon>
-      </v-btn> -->
-      <div>
-        <v-row
-          no-gutters
-          class="text-center"
-        >
-          <v-col>
-            {{ currentTime }}
-          </v-col>
-          <v-col>
-            <v-progress-linear
-              v-model="percentage"
-              class="d-block"
-              height="5"
-              style="margin-top: 8px; margin-bottom: 8px;"
-              @click.native="setPosition()"
-              :disabled="!loaded"
-            />
-          </v-col>
-          <v-col>
-            {{ duration }}
-          </v-col>
-        </v-row>
-      </div>
+      </v-btn>
+      <v-progress-linear
+        v-model="percentage"
+        height="5"
+        style="margin-top: 15px; margin-bottom: 15px;"
+        @click.native="setPosition()"
+        :disabled="!loaded"
+      />
+      <p>{{ currentTime }} / {{ duration }}</p>
     </v-card-text>
     <audio
       id="player"
@@ -113,7 +81,7 @@
   </v-card>
 </template>
 <script>
-const formatTime = second => new Date(second * 1000).toISOString().substr(14, 5)
+const formatTime = second => new Date(second * 1000).toISOString().substr(11, 8)
 export default {
   name: 'VuetifyAudio',
   props: {
@@ -159,7 +127,7 @@ export default {
       playing: false,
       paused: false,
       percentage: 0,
-      currentTime: '00:00',
+      currentTime: '00:00:00',
       audio: undefined,
       totalDuration: 0
     }
@@ -256,11 +224,3 @@ export default {
   }
 }
 </script>
-<style>
-.song-image{
-  background-color: white;
-  min-height: 191px;
-  width: 100%;
-  height: 100%;
-}
-</style>
