@@ -11,12 +11,16 @@
       <v-col cols="12">
         <v-divider />
       </v-col>
-      <!-- SONGS -->
       <v-row>
-        <v-col cols="8">
+        <!-- SONGS -->
+        <v-col
+          cols="12"
+          md="8"
+        >
           <v-row>
             <v-col
-              cols="6"
+              cols="12"
+              md="6"
               v-for="(song, i) in songs"
               :key="i"
             >
@@ -28,7 +32,11 @@
             </v-col>
           </v-row>
         </v-col>
-        <v-col cols="4">
+        <!-- ABOUT -->
+        <v-col
+          cols="12"
+          md="4"
+        >
           <v-row>
             <v-col
               cols="12"
@@ -41,7 +49,7 @@
             </v-col>
             <v-col
               cols="12"
-              class="grey darken-3 pre"
+              class="grey darken-3"
             >
               All beats available for purchase.<br><br>
 
