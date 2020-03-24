@@ -4,8 +4,8 @@
     <v-app-bar
       app
       clipped-left
-      class=""
-      color="transparent"
+      class="navbar"
+      color="navbar"
       flat
     >
       <!-- Toggle sidebar button -->
