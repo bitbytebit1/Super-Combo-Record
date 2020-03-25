@@ -1,6 +1,6 @@
 <template>
   <v-card
-    :class="!playing || paused ? 'v-card--outlined' : 'v-card--playing'"
+    :class="isPaused? 'v-card--outlined' : 'v-card--playing'"
     class="ma-1"
   >
     <v-card-text
@@ -23,8 +23,8 @@
       </v-btn>
       <!-- PLAY -->
       <v-btn
+        :outlined="isPaused"
         class="d-inline-block white--text "
-        :outlined="!playing || paused"
         x-large
         icon
         :disabled="!loaded"
@@ -34,7 +34,7 @@
           mode="out-in"
         >
           <v-icon
-            v-if="!playing || paused"
+            v-if="isPaused"
           >
             mdi-play
           </v-icon>
@@ -248,6 +248,9 @@ export default {
   computed: {
     duration: function () {
       return this.audio ? formatTime(this.totalDuration) : ''
+    },
+    isPaused () {
+      return !this.playing || this.paused
     }
   },
   data () {

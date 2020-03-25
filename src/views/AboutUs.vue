@@ -1,15 +1,7 @@
 <template>
   <div>
+    <BaseHeader title="About the label" />
     <v-row>
-      <v-col
-        cols="12"
-        class="display-1 font-weight-bold grey--text lighten-1"
-      >
-        ABOUT THE LABEL
-      </v-col>
-      <v-col cols="12">
-        <v-divider />
-      </v-col>
       <v-col
         cols="12"
         sm="6"
@@ -45,16 +37,10 @@
         <br><br>
         C.E.O. of Super Combo Records
       </v-col>
-      <v-col
-        cols="12"
-        class="display-1 font-weight-bold grey--text lighten-1"
-      >
-        THE SQUAD
-      </v-col>
-      <v-col cols="12">
-        <v-divider />
-      </v-col>
     </v-row>
+
+    <BaseHeader title="THE SQUAD" />
+
     <v-row
       align="center"
       justify="center"

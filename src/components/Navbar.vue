@@ -41,7 +41,7 @@
             <v-icon>{{ item.icon }}</v-icon>
           </v-list-item-action> -->
           <v-list-item-content>
-            <v-list-item-title>
+            <v-list-item-title class="subtitle-1">
               {{ item.text }}
             </v-list-item-title>
           </v-list-item-content>
@@ -55,7 +55,7 @@
 export default {
   data () {
     return {
-      drawer: false
+      drawer: !this.$vuetify.breakpoint.smAndDown
     }
   },
   computed: {

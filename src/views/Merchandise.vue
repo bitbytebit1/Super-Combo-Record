@@ -1,12 +1,13 @@
 <template>
-  <v-card
+  <div
     class="fill-height text-center"
     style="width:100%"
   >
-    <div style="display:flex;justify-content:center;align-items:center;">
-      <h1>Coming soon</h1>
-    </div>
-  </v-card>
+    <BaseHeader
+      title="Coming soon"
+      class="text-center"
+    />
+  </div>
 </template>
 
 <script>
