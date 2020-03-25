@@ -52,6 +52,7 @@
           class="d-inline-block"
           width="255"
           :src="require('@/assets/dk2.jpg')"
+          :lazy-src="require('@/assets/dk2.jpg')"
         />
         <div>
           DEAN KAU<br>
@@ -67,6 +68,7 @@
           height="255"
           width="255"
           :src="require('@/assets/deps.jpeg')"
+          :lazy-src="require('@/assets/deps.jpeg')"
         />
         <div class="src-font">
           DEPSOUL<br>

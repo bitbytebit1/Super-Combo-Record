@@ -60,18 +60,13 @@ export default {
   },
   computed: {
     menuItems () {
-      let menuItems = [
-        { icon: 'search', text: 'Home', link: '/' },
-        { icon: 'face', text: 'About us', link: '/about' },
-        { icon: 'audiotrack', text: 'Beat store', link: '/beat-store' },
-        { icon: 'audiotrack', text: 'Merchandise', link: '/merchandise' }
+      const menuItems = [
+        { text: 'Home', link: '/' },
+        { text: 'About us', link: '/about' },
+        { text: 'Beat store', link: '/beat-store' },
+        { text: 'Merchandise', link: '/merchandise' },
+        { text: 'Contact', link: '/contact' }
       ]
-      if (this.userIsAuthenticated) {
-        menuItems = [
-          { icon: 'search', text: 'Browse', link: '/' },
-          { icon: 'person', text: 'Profile', link: '/profile' }
-        ]
-      }
       return menuItems
     },
     userIsAuthenticated () {
