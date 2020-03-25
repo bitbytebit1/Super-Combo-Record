@@ -4,9 +4,9 @@
     <v-app-bar
       app
       clipped-left
-      class="navbar"
-      color="navbar"
+      fixed
       flat
+      hide-on-scroll
     >
       <!-- Toggle sidebar button -->
       <v-app-bar-nav-icon
@@ -15,7 +15,7 @@
       />
 
       <!-- Title -->
-      <v-toolbar-title class="white--text accent-4">
+      <v-toolbar-title class="title white--text accent-4">
         Super Combo Records
       </v-toolbar-title>
     </v-app-bar>
@@ -26,7 +26,7 @@
       clipped
       v-model="drawer"
       disable-route-watcher
-      color="grey darken-4"
+      color="navbar"
     >
       <v-list
         dense
@@ -37,9 +37,9 @@
           :key="item.title"
           :to="item.link"
         >
-          <v-list-item-action>
+          <!-- <v-list-item-action>
             <v-icon>{{ item.icon }}</v-icon>
-          </v-list-item-action>
+          </v-list-item-action> -->
           <v-list-item-content>
             <v-list-item-title>
               {{ item.text }}

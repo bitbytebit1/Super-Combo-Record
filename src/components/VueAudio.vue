@@ -1,87 +1,180 @@
 <template>
-  <v-card>
-    <v-card-text>
-      <v-card-text
-        v-ripple
-        class="grey dark song-image d-flex "
-        style="display:flex;justify-content:center;align-items:center;"
-        @click="playing ? pause() : play()"
+  <v-card
+    :loading1="playing"
+    :class="!playing || paused ? 'v-card--outlined' : 'v-card--playing'"
+    class="ma-1"
+  >
+    <v-card-text
+      v-ripple
+      class="song-image outlined"
+      style="display:flex;justify-content:center;align-items:center;"
+      @click="playing ? pause() : play()"
+    >
+      <!-- PREVIOUS -->
+      <v-btn
+        v-if="showControls"
+        class="d-inline-block white--text mr-2 "
+        outlined
+        icon
+        @click="previous"
       >
-        <v-btn
-          class="d-inline-block white--text"
-          outlined
-          x-large
-          icon
-          color="black"
-          :disabled="!loaded"
+        <v-icon>
+          mdi-skip-previous
+        </v-icon>
+      </v-btn>
+      <!-- PLAY -->
+      <v-btn
+        class="d-inline-block white--text "
+        outlined
+        x-large
+        icon
+        :disabled="!loaded"
+        :class="!playing || paused ? '' : 'primary'"
+      >
+        <v-icon v-if="!playing || paused">
+          mdi-play
+        </v-icon>
+        <v-icon
+          v-else
         >
-          <v-icon v-if="!playing || paused">
-            mdi-play
-          </v-icon>
-          <v-icon v-else>
-            mdi-pause
-          </v-icon>
-        </v-btn>
-      </v-card-text>
-      <v-card-text
-        v-text="title"
-        class="text-center title"
-      />
-
-      <div>
-        <v-row
-          no-gutters
-          class="text-center"
+          mdi-pause
+        </v-icon>
+      </v-btn>
+      <!-- NEXT -->
+      <v-btn
+        v-if="showControls"
+        class="d-inline-block white--text ml-2"
+        outlined
+        icon
+        @click="next"
+      >
+        <v-icon>
+          mdi-skip-next
+        </v-icon>
+      </v-btn>
+      <!-- VOLUME -->
+      <div
+        v-if="showControls"
+        id="right"
+        class="hidden-xs-only d"
+        style="displa"
+        @wheel.prevent="onWheel"
+        @click.stop
+      >
+        <v-speed-dial
+          transition="none"
+          open-on-hover
         >
-          <v-col>
-            {{ currentTime }}
-          </v-col>
-          <v-col>
-            <v-progress-linear
-              v-model="percentage"
-              class="d-block"
-              height="10"
-              @click.native="setPosition()"
-              :disabled="!loaded"
-            />
-          </v-col>
-          <v-col>
-            {{ duration }}
-          </v-col>
-        </v-row>
+          <v-btn
+            slot="activator"
+            fab
+            hover
+            icon
+            outline
+            small
+            @click.stop="toggleMute"
+          >
+            <v-icon>{{ volIcon }}</v-icon>
+          </v-btn>
+          <div
+            class="slider-wrapper ma-0 pa-0"
+          >
+            <input
+              v-model="volume"
+              class="vol-slider pointer"
+              type="range"
+              min="0"
+              max="10"
+              step="0.01"
+              @input="volumeChange"
+            >
+          </div>
+        </v-speed-dial>
       </div>
-
-      <v-card-text
-        v-text="price"
-        class="text-center red--text subtitle-1"
-      />
     </v-card-text>
+    <!-- TITLE -->
+    <v-card-text
+      v-text="title"
+      class="text-center title"
+    />
+
+    <!-- PROGRESS -->
+    <v-row
+      no-gutters
+      class="text-center"
+    >
+      <!-- CURRENT TIME -->
+      <v-col cols="2">
+        {{ currentTime }}
+      </v-col>
+      <!-- PERCENTAGE -->
+      <v-col cols="8">
+        <v-progress-linear
+          v-model="percentage"
+          class="d-block"
+          height="10"
+          style="margin-top:7px;"
+          @click.native="setPosition()"
+          :disabled="!loaded"
+        />
+      </v-col>
+      <!-- duration -->
+      <v-col cols="2">
+        {{ duration }}
+      </v-col>
+    </v-row>
+    <!-- PRICE -->
+    <v-card-text
+      v-text="price[0]"
+      class="text-center subtitle-1"
+      :class="freeColor(price[0], true)"
+    />
+    <!-- PURCHASE -->
     <div class="text-center pb-4">
-      <v-menu offset-y>
+      <v-menu
+        :close-on-content-click="false"
+        open-on-hover
+        bottom
+        offset-y
+      >
         <template v-slot:activator="{ on }">
           <v-btn
-            color="red"
-            dark
+            :class="freeColor(price[0], true)"
+            outlined
             v-on="on"
           >
-            Purchase
+            {{ price[0] =='Free' ? 'Download' : 'Purchase' }}
           </v-btn>
         </template>
-        <v-list>
-          <v-list-item @click="true">
-            <v-list-item-title>MP3 with intro</v-list-item-title>
-          </v-list-item>
-          <v-list-item @click="true">
-            <v-list-item-title>WAV with intro</v-list-item-title>
-          </v-list-item>
-          <v-list-item @click="true">
-            <v-list-item-title>Project files without intro</v-list-item-title>
-          </v-list-item>
+
+        <v-list
+          nav
+          class="v-card--outlined"
+        >
+          <v-list-group
+            v-for="(item, i) in purchaseOptions"
+            :key="i"
+          >
+            <template v-slot:activator>
+              <v-list-item-title active-class="white--text">
+                {{ item.title }}
+                <span
+                  v-text="price[i]"
+                  :class="freeColor(price[i], true)"
+                  class="text-center pl-1  subtitle-1"
+                />
+              </v-list-item-title>
+            </template>
+            <div
+              class="text-center py-4"
+              v-html="buttons[i]"
+            />
+          </v-list-group>
         </v-list>
       </v-menu>
     </div>
     <audio
-      id="player"
+      :id="`scr-player-${id}`"
       ref="player"
       @ended="ended"
       @canplay="canPlay"
@@ -94,9 +187,17 @@ const formatTime = second => new Date(second * 1000).toISOString().substr(14, 5)
 export default {
   name: 'VuetifyAudio',
   props: {
-    price: {
-      type: String,
+    buttons: {
+      type: Array,
+      default: () => []
+    },
+    id: {
+      type: Number,
       default: null
+    },
+    price: {
+      type: Array,
+      default: () => []
     },
     title: {
       type: String,
@@ -125,6 +226,10 @@ export default {
     downloadable: {
       type: Boolean,
       default: false
+    },
+    showControls: {
+      type: Boolean,
+      default: false
     }
   },
   computed: {
@@ -134,6 +239,32 @@ export default {
   },
   data () {
     return {
+      purchaseOptions: [
+        {
+          action: '',
+          title: 'MP3 Tagged',
+          active: false,
+          items: [
+            { title: '' }
+          ]
+        },
+        {
+          action: '',
+          title: 'WAV Untagged',
+          active: false,
+          items: [
+            { title: '' }
+          ]
+        },
+        {
+          action: '',
+          title: 'WAV Untagged and Track',
+          active: false,
+          items: [
+            { title: '' }
+          ]
+        }
+      ],
       firstPlay: true,
       isMuted: false,
       loaded: false,
@@ -142,10 +273,27 @@ export default {
       percentage: 0,
       currentTime: '00:00',
       audio: undefined,
-      totalDuration: 0
+      totalDuration: 0,
+      volume: 0.8,
+      volIcon: 'volume_up'
     }
   },
   methods: {
+    freeColor (price, text) {
+      const r = price === 'Free' ? 'green' : 'red'
+      return text ? r + '--text' : r
+    },
+    volumeChange () {
+      this.volume = this.audio.volume * 10
+      this.updateVolIcon()
+    },
+    updateVolIcon () {
+      return (this.volIcon = this.eAudio.volume > 0.5 ? 'volume_up' : this.eAudio.volume === 0 || this.eAudio.muted ? 'volume_off' : 'volume_down')
+    },
+    buy (id) {
+      console.log(this.buttons)
+      console.log(this.buttons[0])
+    },
     setPosition () {
       this.audio.currentTime = parseInt(this.audio.duration / 100 * this.percentage)
     },
@@ -153,6 +301,12 @@ export default {
       this.paused = this.playing = false
       this.audio.pause()
       this.audio.currentTime = 0
+    },
+    previous () {
+      document.getElementById('scr-player-' + (this.id - 1)).play()
+    },
+    next () {
+      document.getElementById('scr-player-' + (this.id + 1)).play()
     },
     play () {
       if (this.playing) return
@@ -202,11 +356,21 @@ export default {
       this.playing = true
     },
     _handlePlayPause: function (e) {
+      this.playing = e.type === 'play'
+      this.paused = e.type === 'pause'
       if (e.type === 'play' && this.firstPlay) {
         // in some situations, audio.currentTime is the end one on chrome
         this.audio.currentTime = 0
         if (this.firstPlay) {
           this.firstPlay = false
+        }
+      }
+      var audios = document.getElementsByTagName('audio')
+      if (e.type === 'play') {
+        for (var i = 0, len = audios.length; i < len; i++) {
+          if (audios[i] !== e.target) {
+            audios[i].pause()
+          }
         }
       }
       if (e.type === 'pause' && this.paused === false && this.playing === false) {
@@ -215,6 +379,8 @@ export default {
     },
     _handleEnded () {
       this.paused = this.playing = false
+      const query = document.getElementById('scr-player-' + (this.id + 1)).play()
+      console.log(query)
     },
     init: function () {
       this.audio.addEventListener('timeupdate', this._handlePlayingUI)
@@ -238,7 +404,65 @@ export default {
 }
 </script>
 <style>
+.v-list .v-list-item--active {
+    color: antiquewhite!important;
+}
 .song-image{
-  height: 191px;
+  height: 169px;
+}
+.outlined {
+  border: thin solid rgba(255, 255, 255, 0.12) !important;
+}
+.v-card--playing{
+  border: thin solid rgba(255, 255, 255, 0.12) !important;
+  border-bottom: thin solid rgba(255, 0, 0, 0.42) !important;
+  border-top: thin solid rgba(255, 0, 0, 0.42) !important;
+}
+.vol-slider {
+  background: red
+}
+#progress-slider-2{
+  margin-top: 15px;
+}
+.vol-slider {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 25px;
+    background: #504949;
+    outline: none;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+}
+
+.vol-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 20px;
+    height: 25px;
+}
+
+.vol-slider::-moz-range-thumb {
+    width: 25px;
+    height: 25px;
+}
+.vol-slider::-moz-range-track {
+    background: #504949;
+}
+
+.vol-slider::-webkit-slider-runnable-track {
+    background: #504949;
+}
+.slider-wrapper input {
+  width: 150px;
+  height: 20px;
+  margin: 0;
+  transform-origin: 75px 75px;
+  transform: rotate(-90deg);
+}
+
+.slider-wrapper {
+  display: inline-block;
+  width: 20px;
+  height: 150px;
+  padding: 0;
 }
 </style>
