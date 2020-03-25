@@ -14,7 +14,20 @@
         cols="12"
         sm="6"
       >
-        <v-img :src="require('@/assets/studio.jpg')" />
+        <v-img
+          :src="require('@/assets/studio.jpg')"
+          :lazy-src="require('@/assets/studio.jpg')"
+        >
+          <template v-slot:placeholder>
+            <v-row
+              class="fill-height ma-0"
+              align="center"
+              justify="center"
+            >
+              <Spinner />
+            </v-row>
+          </template>
+        </v-img>
       </v-col>
       <v-col
         cols="12"
@@ -42,7 +55,10 @@
         <v-divider />
       </v-col>
     </v-row>
-    <v-row>
+    <v-row
+      align="center"
+      justify="center"
+    >
       <v-col
         cols="6"
         md="3"
@@ -53,7 +69,17 @@
           width="255"
           :src="require('@/assets/dk2.jpg')"
           :lazy-src="require('@/assets/dk2.jpg')"
-        />
+        >
+          <template v-slot:placeholder>
+            <v-row
+              class="fill-height ma-0"
+              align="center"
+              justify="center"
+            >
+              <Spinner />
+            </v-row>
+          </template>
+        </v-img>
         <div>
           DEAN KAU<br>
           COMPOSER, PRODUCER, AUDIO ENGINEER
@@ -69,7 +95,17 @@
           width="255"
           :src="require('@/assets/deps.jpeg')"
           :lazy-src="require('@/assets/deps.jpeg')"
-        />
+        >
+          <template v-slot:placeholder>
+            <v-row
+              class="fill-height ma-0"
+              align="center"
+              justify="center"
+            >
+              <Spinner />
+            </v-row>
+          </template>
+        </v-img>
         <div class="src-font">
           DEPSOUL<br>
           SONG WRITER RAP ARTIST, DJ, DESIGNER
@@ -80,8 +116,11 @@
 </template>
 
 <script>
+import Spinner from '@/components/Spinner.vue'
 export default {
-
+  components: {
+    Spinner
+  }
 }
 </script>
 

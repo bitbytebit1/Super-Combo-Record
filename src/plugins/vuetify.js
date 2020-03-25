@@ -16,15 +16,14 @@ export default new Vuetify({
         secondary: colors.indigo, // #FFCDD2
         accent: colors.indigo.base, // #3F51B5
         warning: colors.orange.darken3, // #3F51B5
-        navbar: '121212' // #3F51B5
-
+        cardColor: '121212' // #3F51B5
       },
       dark: {
         primary: colors.red, // #E53935 colors.red.darken4
         secondary: colors.indigo, // #FFCDD2
         accent: colors.indigo.base, // #3F51B5
         warning: colors.orange.darken3, // #3F51B5
-        navbar: '121212' // #3F51B5
+        cardColor: '121212' // #3F51B5
       }
     }
   }

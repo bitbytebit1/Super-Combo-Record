@@ -25,10 +25,10 @@
             v-for="(song, i) in songs"
             :key="i"
           >
-            <VueAudio
+            <BeatStoreAudio
               :id="i"
               :title="song.title"
-              :file="require(`@/assets/Songs/${song.file}`)"
+              :file="`./Songs/${song.file}`"
               :price="song.price"
               :buttons="song.buttons"
             />
@@ -77,10 +77,10 @@
 </template>
 
 <script>
-import VueAudio from '@/components/VueAudio.vue'
+import BeatStoreAudio from './BeatStoreAudio.vue'
 export default {
   components: {
-    VueAudio
+    BeatStoreAudio
   },
   data () {
     return {

@@ -1,6 +1,5 @@
 <template>
   <v-card
-    :loading1="playing"
     :class="!playing || paused ? 'v-card--outlined' : 'v-card--playing'"
     class="ma-1"
   >
@@ -25,20 +24,30 @@
       <!-- PLAY -->
       <v-btn
         class="d-inline-block white--text "
-        outlined
+        :outlined="!playing || paused"
         x-large
         icon
         :disabled="!loaded"
-        :class="!playing || paused ? '' : 'primary'"
       >
-        <v-icon v-if="!playing || paused">
-          mdi-play
-        </v-icon>
-        <v-icon
-          v-else
+        <transition
+          name="fade"
+          mode="out-in"
         >
-          mdi-pause
-        </v-icon>
+          <v-icon
+            v-if="!playing || paused"
+          >
+            mdi-play
+          </v-icon>
+          <Spinner
+            v-else
+          />
+          <!-- <v-icon
+            v-else
+            color="white"
+          >
+            mdi-pause
+          </v-icon> -->
+        </transition>
       </v-btn>
       <!-- NEXT -->
       <v-btn
@@ -127,8 +136,8 @@
     <v-card-text
       v-text="price[0]"
       class="text-center subtitle-1"
-      :class="freeColor(price[0], true)"
     />
+    <!-- :class="freeColor(price[0], true)" -->
     <!-- PURCHASE -->
     <div class="text-center pb-4">
       <v-menu
@@ -183,9 +192,13 @@
   </v-card>
 </template>
 <script>
+import Spinner from '@/components/Spinner.vue'
 const formatTime = second => new Date(second * 1000).toISOString().substr(14, 5)
 export default {
   name: 'VuetifyAudio',
+  components: {
+    Spinner
+  },
   props: {
     buttons: {
       type: Array,
@@ -404,11 +417,21 @@ export default {
 }
 </script>
 <style>
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.2s;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
 .v-list .v-list-item--active {
     color: antiquewhite!important;
 }
 .song-image{
   height: 169px;
+  box-sizing:border-box;
 }
 .outlined {
   border: thin solid rgba(255, 255, 255, 0.12) !important;

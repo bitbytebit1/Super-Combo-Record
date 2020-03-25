@@ -3,7 +3,7 @@
     <NavBar />
 
     <v-content>
-      <v-container>
+      <v-container class="fill-height">
         <keep-alive>
           <router-view />
         </keep-alive>
