@@ -5,7 +5,7 @@
 
 $body-font-family: 'Montserrat';
 $headings: 'Cinzel';
-$typoOptions: display-4, display-3, display-2, display-1, headline, title, subtitle-1, subtitle-2, body-1, body-2, caption, overline;
+$typoOptions: display-4, display-3, display-2, display-1, headline, title, subtitle-1, subtitle-2, body-1, body-2, caption, overline, v-list-item__title;
 #app {
   font-family: $body-font-family, sans-serif !important;
   @each $typoOption in $typoOptions {
