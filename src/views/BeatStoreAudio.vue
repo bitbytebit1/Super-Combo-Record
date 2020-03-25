@@ -1,7 +1,6 @@
 <template>
   <v-card
     :class="isPaused? 'v-card--outlined' : 'v-card--playing'"
-    class="ma-1"
   >
     <v-card-text
       v-ripple
@@ -38,9 +37,20 @@
           >
             mdi-play
           </v-icon>
-          <Spinner
+          <div
             v-else
-          />
+            style="position:relative"
+          >
+            <Spinner />
+            <!-- <div style="position:absolute;top:10px;bottom:0;left:0;right:0;">
+              <v-icon
+                x-large
+                style="color: #1e1e1e"
+              >
+                mdi-play
+              </v-icon>
+            </div> -->
+          </div>
           <!-- <v-icon
             v-else
             color="white"
@@ -135,7 +145,7 @@
     <!-- PRICE -->
     <v-card-text
       v-text="price[0]"
-      class="text-center subtitle-1"
+      class="text-center"
     />
     <!-- :class="freeColor(price[0], true)" -->
     <!-- PURCHASE -->
@@ -152,7 +162,9 @@
             outlined
             v-on="on"
           >
-            {{ price[0] =='Free' ? 'Download' : 'Purchase' }}
+            <div class="white--text">
+              {{ price[0] =='Free' ? 'Download' : 'Purchase' }}
+            </div>
           </v-btn>
         </template>
 
@@ -170,7 +182,7 @@
                 <span
                   v-text="price[i]"
                   :class="freeColor(price[i], true)"
-                  class="text-center pl-1  subtitle-1"
+                  class="text-center pl-1 "
                 />
               </v-list-item-title>
             </template>

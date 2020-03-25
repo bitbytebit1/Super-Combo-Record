@@ -2,7 +2,7 @@
   <v-row>
     <v-col
       cols="12"
-      class="display-1 text-left font-weight-bold grey--text lighten-1"
+      class="display-1 text-left font-weight-bold"
     >
       {{ title }}
     </v-col>

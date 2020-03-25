@@ -15,7 +15,10 @@
       />
 
       <!-- Title -->
-      <v-toolbar-title class="title white--text accent-4">
+      <v-toolbar-title
+        class="title white--text accent-4"
+        @click="$router.push({name: 'home'})"
+      >
         Super Combo Records
       </v-toolbar-title>
     </v-app-bar>

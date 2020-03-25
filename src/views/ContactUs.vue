@@ -1,11 +1,11 @@
 <template>
   <v-row
-    id="contact"
-    class="contact pa-4 pa-md-12"
+    class="px-3"
   >
     <BaseHeader title="Contact Us" />
     <transition
-      name="fade"
+      name="contact-fade"
+      mode="out-in"
     >
       <div
         v-if="formSubmitted"
@@ -20,73 +20,75 @@
         v-else
         cols="12"
       >
-        <v-form
-          id="contactForm"
-          ref="contactForm"
-          v-model="formValid"
-          method="POST"
-          class="px-4"
-          target="contactFrame"
-          action="https://mailthis.to/SuperComboRecords"
-        >
-          <v-row>
-            <v-col
-              cols="12"
-              lg="4"
-            >
-              <!-- INPUTS -->
-              <v-text-field
-                :rules="ruleNotEmpty"
-                label="Name *"
-                type="text"
-                name="name"
-                filled
-                required
-              />
-              <v-text-field
-                :rules="ruleEmail"
-                label="Email*"
-                type="email"
-                name="_replyto"
-                filled
-                required
-              />
-            </v-col>
-            <v-col
-              cols="12"
-              lg="8"
-            >
-              <v-textarea
-                :rules="ruleNotEmpty"
-                name="message"
-                rows="3"
-                filled
-                class="ma-0 pa-0"
-                label="Message *"
-              />
-            </v-col>
-
-            <!-- HIDDEN INPUTS -->
-            <input
-              type="hidden"
-              name="_honeypot"
-              value=""
-            >
-            <!-- SUBMIT BUTTON -->
-            <v-col
-              cols="12"
-              lg="12"
-              class="text-right"
-            >
-              <v-btn
-                @click="submitForm"
-                outlined
+        <v-card>
+          <v-form
+            id="contactForm"
+            ref="contactForm"
+            v-model="formValid"
+            method="POST"
+            class="px-4 py-2"
+            target="contactFrame"
+            action="https://mailthis.to/SuperComboRecords"
+          >
+            <v-row>
+              <v-col
+                cols="12"
+                lg="4"
               >
-                Send
-              </v-btn>
-            </v-col>
-          </v-row>
-        </v-form>
+                <!-- INPUTS -->
+                <v-text-field
+                  :rules="ruleNotEmpty"
+                  label="Name *"
+                  type="text"
+                  name="name"
+                  filled
+                  required
+                />
+                <v-text-field
+                  :rules="ruleEmail"
+                  label="Email*"
+                  type="email"
+                  name="_replyto"
+                  filled
+                  required
+                />
+              </v-col>
+              <v-col
+                cols="12"
+                lg="8"
+              >
+                <v-textarea
+                  :rules="ruleNotEmpty"
+                  name="message"
+                  rows="3"
+                  filled
+                  class="ma-0 pa-0"
+                  label="Message *"
+                />
+              </v-col>
+
+              <!-- HIDDEN INPUTS -->
+              <input
+                type="hidden"
+                name="_honeypot"
+                value=""
+              >
+              <!-- SUBMIT BUTTON -->
+              <v-col
+                cols="12"
+                lg="12"
+                class="text-right"
+              >
+                <v-btn
+                  @click="submitForm"
+                  outlined
+                >
+                  Send
+                </v-btn>
+              </v-col>
+            </v-row>
+          </v-form>
+        </v-card>
       </v-col>
     </transition>
     <iframe
@@ -137,13 +139,13 @@ export default {
 </script>
 
 <style>
-.fade-enter-active {
+.contact-fade-enter-active {
   transition: opacity .5s;
 }
-.fade-leave-active {
+.contact-fade-leave-active {
   transition: opacity .5s;
 }
-.fade-enter, .fade-leave-to {
+.contact-fade-enter, .contact-fade-leave-to {
   opacity: 0;
 }
 

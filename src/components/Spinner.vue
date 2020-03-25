@@ -27,7 +27,7 @@
       position: absolute;
       border-radius: 50%;
       border: 2px solid transparent;
-      border-top-color: red;
+      border-top-color: rgba(210,0, 0,0.9);
       animation: fingerprint-spinner-animation 1500ms cubic-bezier(0.680, -0.750, 0.265, 1.750) infinite forwards;
       margin: auto;
       bottom: 0;

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <BaseHeader title="BEAT STORE" />
+    <BaseHeader title="Beat Store" />
     <v-row>
       <!-- SONGS -->
       <v-col
@@ -31,30 +31,33 @@
       >
         <BaseHeader title="Details" />
         <v-row>
-          <v-card>
-            <v-col
-              cols="12"
-            >
-              <div>
-                All beats available for purchase.
-              </div><br>
-              <div>
-                We offer several different price points to support all budgets and needs
-              </div><br>
-              <div>
-                MP3 - Tagged
-              </div>
-              <div>
-                WAV - Tagged
-              </div>
-              <div>
-                WAV - Untagged and project files
-              </div><br>
-              <div>
-                Follow us on <a href="https://www.instagram.com/deankautheproducer/?hl=en">instagram</a> to get one free download
-              </div>
-            </v-col>
-          </v-card>
+          <v-col
+            cols="12"
+            class=""
+          >
+            <v-card>
+              <v-card-text class="text--primary font-weight-bold">
+                <div>
+                  All beats available for purchase.
+                </div><br>
+                <div>
+                  We offer several different price points to support all budgets and needs.
+                </div><br>
+                <div>
+                  MP3 - Tagged
+                </div>
+                <div>
+                  WAV - Tagged
+                </div>
+                <div>
+                  WAV - Untagged and project files
+                </div><br>
+                <div>
+                  Follow us on <a href="https://www.instagram.com/deankautheproducer/?hl=en">Instagram</a> to get one free download
+                </div>
+              </v-card-text>
+            </v-card>
+          </v-col>
         </v-row>
       </v-col>
     </v-row>
