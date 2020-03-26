@@ -1,31 +1,25 @@
 <template>
   <div>
-    <BaseHeader title="Beat Store" />
+    <BaseHeader title="Beat Store1" />
     <v-row>
-      <!-- SONGS -->
       <v-col
         cols="12"
-        md="8"
+        sm="12"
+        md="6"
+        lg="4"
+        v-for="(song, i) in songs"
+        :key="i"
       >
-        <v-row>
-          <v-col
-            cols="12"
-            md="6"
-            v-for="(song, i) in songs"
-            :key="i"
-          >
-            <BeatStoreAudio
-              :id="i"
-              :title="song.title"
-              :file="`./Songs/${song.file}`"
-              :price="song.price"
-              :buttons="song.buttons"
-            />
-          </v-col>
-        </v-row>
+        <BeatStoreAudio
+          :id="i"
+          :title="song.title"
+          :file="`./Songs/${song.file}`"
+          :price="song.price"
+          :buttons="song.buttons"
+        />
       </v-col>
       <!-- ABOUT -->
-      <v-col
+      <!-- <v-col
         cols="12"
         md="4"
       >
@@ -59,7 +53,7 @@
             </v-card>
           </v-col>
         </v-row>
-      </v-col>
+      </v-col> -->
     </v-row>
   </div>
 </template>

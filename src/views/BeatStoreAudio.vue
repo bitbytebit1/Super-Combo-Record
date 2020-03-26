@@ -2,115 +2,111 @@
   <v-card
     :class="isPaused? 'v-card--outlined' : 'v-card--playing'"
   >
-    <v-card-text
+    <v-img
+      aspect-ratio="1"
+      src="11"
+      min-height="250"
       v-ripple
       class="song-image outlined"
       style="display:flex;justify-content:center;align-items:center;"
       @click="playing ? pause() : play()"
     >
-      <!-- PREVIOUS -->
-      <v-btn
-        v-if="showControls"
-        class="d-inline-block white--text mr-2 "
-        outlined
-        icon
-        @click="previous"
+      <v-row
+        class="fill-height ma-0"
+        align="center"
+        justify="center"
       >
-        <v-icon>
-          mdi-skip-previous
-        </v-icon>
-      </v-btn>
-      <!-- PLAY -->
-      <v-btn
-        :outlined="isPaused"
-        class="d-inline-block white--text "
-        x-large
-        icon
-        :disabled="!loaded"
-      >
-        <transition
-          name="fade"
-          mode="out-in"
+        <!-- PREVIOUS -->
+        <v-btn
+          v-if="showControls"
+          class="d-inline-block white--text mr-2 "
+          outlined
+          icon
+          @click="previous"
         >
-          <v-icon
-            v-if="isPaused"
-          >
-            mdi-play
+          <v-icon>
+            mdi-skip-previous
           </v-icon>
-          <div
-            v-else
-            style="position:relative"
+        </v-btn>
+        <!-- PLAY -->
+        <v-btn
+          class="d-inline-block grey--text text--lighten-4 "
+          x-large
+          icon
+          :disabled="!loaded"
+        >
+          <transition
+            name="fade"
+            mode="out-in"
           >
-            <Spinner />
-            <!-- <div style="position:absolute;top:10px;bottom:0;left:0;right:0;">
-              <v-icon
-                x-large
-                style="color: #1e1e1e"
-              >
-                mdi-play
-              </v-icon>
-            </div> -->
-          </div>
-          <!-- <v-icon
-            v-else
+            <v-icon
+              v-if="!playing"
+            >
+              mdi-play
+            </v-icon>
+            <!-- <v-icon
             color="white"
           >
             mdi-pause
           </v-icon> -->
-        </transition>
-      </v-btn>
-      <!-- NEXT -->
-      <v-btn
-        v-if="showControls"
-        class="d-inline-block white--text ml-2"
-        outlined
-        icon
-        @click="next"
-      >
-        <v-icon>
-          mdi-skip-next
-        </v-icon>
-      </v-btn>
-      <!-- VOLUME -->
-      <div
-        v-if="showControls"
-        id="right"
-        class="hidden-xs-only d"
-        style="displa"
-        @wheel.prevent="onWheel"
-        @click.stop
-      >
-        <v-speed-dial
-          transition="none"
-          open-on-hover
+            <Spinner
+              v-else
+            />
+          </transition>
+        </v-btn>
+        <!-- NEXT -->
+        <v-btn
+          v-if="showControls"
+          class="d-inline-block white--text ml-2"
+          outlined
+          icon
+          @click="next"
         >
-          <v-btn
-            slot="activator"
-            fab
-            hover
-            icon
-            outline
-            small
-            @click.stop="toggleMute"
+          <v-icon>
+            mdi-skip-next
+          </v-icon>
+        </v-btn>
+        <!-- VOLUME -->
+        <div
+          v-if="showControls"
+          id="right"
+          class="hidden-xs-only d"
+          style="displa"
+          @wheel.prevent="onWheel"
+          @click.stop
+        >
+          <v-speed-dial
+            transition="none"
+            open-on-hover
           >
-            <v-icon>{{ volIcon }}</v-icon>
-          </v-btn>
-          <div
-            class="slider-wrapper ma-0 pa-0"
-          >
-            <input
-              v-model="volume"
-              class="vol-slider pointer"
-              type="range"
-              min="0"
-              max="10"
-              step="0.01"
-              @input="volumeChange"
+            <v-btn
+              slot="activator"
+              fab
+              hover
+              icon
+              outline
+              small
+              @click.stop="toggleMute"
             >
-          </div>
-        </v-speed-dial>
-      </div>
-    </v-card-text>
+              <v-icon>{{ volIcon }}</v-icon>
+            </v-btn>
+            <div
+              class="slider-wrapper ma-0 pa-0"
+            >
+              <input
+                v-model="volume"
+                class="vol-slider pointer"
+                type="range"
+                min="0"
+                max="10"
+                step="0.01"
+                @input="volumeChange"
+              >
+            </div>
+          </v-speed-dial>
+        </div>
+      </v-row>
+    </v-img>
     <!-- TITLE -->
     <v-card-text
       v-text="title"
@@ -433,19 +429,11 @@ export default {
 </script>
 <style>
 
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.2s;
-}
-.fade-enter,
-.fade-leave-to {
-  opacity: 0;
-}
 .v-list .v-list-item--active {
     color: antiquewhite!important;
 }
 .song-image{
-  height: 169px;
+  height: 280px;
   box-sizing:border-box;
 }
 .outlined {
