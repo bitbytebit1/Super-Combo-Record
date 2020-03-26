@@ -1,101 +1,106 @@
 <template>
-  <v-row
-    class="px-3"
+  <div
+    style="height:89vh"
   >
-    <BaseHeader title="Contact Us" />
-    <transition
-      name="contact-fade"
-      mode="out-in"
+    <v-row
+      class="px-3"
+      align="start"
     >
-      <div
-        v-if="formSubmitted"
-        :style="containerHeight"
-        :class="$store.getters.headingClass"
-        class="white--text pt-12 text-center"
+      <BaseHeader title="Contact Us" />
+      <transition
+        name="contact-fade"
+        mode="out-in"
       >
-        Thanks for your message<br>
-        We'll get back to you as soon
-      </div>
-      <v-col
-        v-else
-        cols="12"
-      >
-        <v-card>
-          <v-form
-            id="contactForm"
-            ref="contactForm"
-            v-model="formValid"
-            method="POST"
-            class="px-4 py-2"
-            target="contactFrame"
-            action="https://mailthis.to/SuperComboRecords"
-          >
-            <v-row>
-              <v-col
-                cols="12"
-                lg="4"
-              >
-                <!-- INPUTS -->
-                <v-text-field
-                  :rules="ruleNotEmpty"
-                  label="Name *"
-                  type="text"
-                  name="name"
-                  filled
-                  required
-                />
-                <v-text-field
-                  :rules="ruleEmail"
-                  label="Email*"
-                  type="email"
-                  name="_replyto"
-                  filled
-                  required
-                />
-              </v-col>
-              <v-col
-                cols="12"
-                lg="8"
-              >
-                <v-textarea
-                  :rules="ruleNotEmpty"
-                  name="message"
-                  rows="3"
-                  filled
-                  class="ma-0 pa-0"
-                  label="Message *"
-                />
-              </v-col>
-
-              <!-- HIDDEN INPUTS -->
-              <input
-                type="hidden"
-                name="_honeypot"
-                value=""
-              >
-              <!-- SUBMIT BUTTON -->
-              <v-col
-                cols="12"
-                lg="12"
-                class="text-right"
-              >
-                <v-btn
-                  @click="submitForm"
-                  outlined
+        <div
+          v-if="formSubmitted"
+          :style="containerHeight"
+          :class="$store.getters.headingClass"
+          class="white--text pt-12 text-center"
+        >
+          Thanks for your message<br>
+          We'll get back to you as soon
+        </div>
+        <v-col
+          v-else
+          cols="12"
+        >
+          <v-card>
+            <v-form
+              id="contactForm"
+              ref="contactForm"
+              v-model="formValid"
+              method="POST"
+              class="px-4 py-2"
+              target="contactFrame"
+              action="https://mailthis.to/SuperComboRecords"
+            >
+              <v-row>
+                <v-col
+                  cols="12"
+                  lg="4"
                 >
-                  Send
-                </v-btn>
-              </v-col>
-            </v-row>
-          </v-form>
-        </v-card>
-      </v-col>
-    </transition>
-    <iframe
-      name="contactFrame"
-      class="d-none"
-    />
-  </v-row>
+                  <!-- INPUTS -->
+                  <v-text-field
+                    :rules="ruleNotEmpty"
+                    label="Name *"
+                    type="text"
+                    name="name"
+                    filled
+                    required
+                  />
+                  <v-text-field
+                    :rules="ruleEmail"
+                    label="Email*"
+                    type="email"
+                    name="_replyto"
+                    filled
+                    required
+                  />
+                </v-col>
+                <v-col
+                  cols="12"
+                  lg="8"
+                >
+                  <v-textarea
+                    :rules="ruleNotEmpty"
+                    name="message"
+                    rows="3"
+                    filled
+                    class="ma-0 pa-0"
+                    label="Message *"
+                  />
+                </v-col>
+
+                <!-- HIDDEN INPUTS -->
+                <input
+                  type="hidden"
+                  name="_honeypot"
+                  value=""
+                >
+                <!-- SUBMIT BUTTON -->
+                <v-col
+                  cols="12"
+                  lg="12"
+                  class="text-right"
+                >
+                  <v-btn
+                    @click="submitForm"
+                    outlined
+                  >
+                    Send
+                  </v-btn>
+                </v-col>
+              </v-row>
+            </v-form>
+          </v-card>
+        </v-col>
+      </transition>
+      <iframe
+        name="contactFrame"
+        class="d-none"
+      />
+    </v-row>
+  </div>
 </template>
 
 <script>
