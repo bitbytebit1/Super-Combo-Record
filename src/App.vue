@@ -2,15 +2,15 @@
   <v-app>
     <NavBar />
     <v-content>
-      <v-container class="fill-height">
+      <v-container>
         <transition
           :key="$route.fullPath"
           name="fade"
           mode="out-in"
         >
-          <keep-alive>
-            <router-view :class="showBeatStore ? 'd-none' : ''" />
-          </keep-alive>
+          <router-view
+            v-if="!showBeatStore"
+          />
         </transition>
         <transition
           :key="$route.fullPath"
