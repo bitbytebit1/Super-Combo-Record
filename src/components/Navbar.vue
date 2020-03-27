@@ -1,46 +1,43 @@
 <template>
-  <v-container>
+  <v-container id="nav">
     <v-row
       no-gutters=""
       align="center"
       justify="center"
     >
-      <v-img
-        max-height="200"
-        max-width="200"
-        :src="require('@/assets/scr_logo_white.png')"
-        v-if="$vuetify.breakpoint.smAndDown"
-      />
       <v-col
-        v-else
         cols="12"
-        sm="2"
+        md="2"
         class="text-center justify-center"
       >
-        <v-row no-gutters>
-          <v-col>
-            <v-img
-              max-height="200"
-              max-width="200"
-              :src="require('@/assets/scr_logo_white.png')"
-            />
-          </v-col>
-        </v-row>
+        <v-img
+          max-height="200"
+          max-width="200"
+          class="ma-auto"
+          :src="require('@/assets/scr_logo_white.png')"
+          :lazy-src="require('@/assets/scr_logo_white.png')"
+        />
       </v-col>
       <v-col
         cols="12"
         md="10"
-        class="text-sm-center text-md-right mb-4"
+        class="text-center  font-weight-light text-md-right mb-4"
         align-self="end"
       >
         <span
-          v-for="item in menuItems"
+          v-for="(item, i) in menuItems"
           :key="item.title"
+          class="mt-10"
         >
+          <span
+            class="mx-3 overline"
+            v-if="i"
+          >|</span>
+          <v-divider vertical />
           <router-link
             :to="{name: item.link}"
             active-class="red--text"
-            class="white--text subtitle-1"
+            class="body-2 font-weight-light"
           >
             {{ item.text }}
           </router-link>
@@ -54,35 +51,26 @@
 export default {
   data () {
     return {
-      drawer: !this.$vuetify.breakpoint.smAndDown
-    }
-  },
-  computed: {
-    menuItems () {
-      const menuItems = [
+      menuItems: [
         // { text: 'HOME', link: 'Home' },
         { text: 'ABOUT', link: 'AboutUs' },
         { text: 'CONTACT', link: 'Contact' },
-        // { text: 'MERCHANDISE', link: 'Merchandise' },
+        { text: 'MERCHANDISE', link: 'Merchandise' },
         { text: 'BEATS', link: 'BeatStore' }
       ]
-      return menuItems
-    },
-    userIsAuthenticated () {
-      return this.$store.getters.user !== null && this.$store.getters.user !== undefined
-    }
-  },
-  methods: {
-    onLogout () {
-      this.$store.dispatch('logout')
-      this.$router.push('/')
     }
   }
 }
 </script>
 
 <style>
-a{
+#nav {
+  min-height: 193px;
+}
+#nav a{
   text-decoration: none;
+}
+#nav a:not(.router-link-exact-active){
+  color: rgb(215, 215, 215) !important;
 }
 </style>

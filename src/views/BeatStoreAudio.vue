@@ -110,31 +110,32 @@
     <!-- TITLE -->
     <v-card-text
       v-text="title"
-      class="text-center title"
+      class="text-center white--text text-uppercase title"
     />
 
     <!-- PROGRESS -->
     <v-row
       no-gutters
+      justify="center"
+      align="center"
       class="text-center"
     >
       <!-- CURRENT TIME -->
-      <v-col cols="2">
+      <v-col cols="3">
         {{ currentTime }}
       </v-col>
       <!-- PERCENTAGE -->
-      <v-col cols="8">
+      <v-col cols="6">
         <v-progress-linear
           v-model="percentage"
           class="d-block"
           height="10"
-          style="margin-top:7px;"
           @click.native="setPosition()"
           :disabled="!loaded"
         />
       </v-col>
       <!-- duration -->
-      <v-col cols="2">
+      <v-col cols="3">
         {{ duration }}
       </v-col>
     </v-row>
@@ -433,7 +434,7 @@ export default {
     color: antiquewhite!important;
 }
 .song-image{
-  height: 280px;
+  height: 10px;
   box-sizing:border-box;
 }
 .outlined {

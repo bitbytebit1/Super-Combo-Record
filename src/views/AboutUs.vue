@@ -7,8 +7,8 @@
         sm="6"
       >
         <v-img
-          :src="require('@/assets/studio.jpg')"
-          :lazy-src="require('@/assets/studio.jpg')"
+          :src="require('@/assets/studio2.jpg')"
+          :lazy-src="require('@/assets/studio2.jpg')"
         >
           <template v-slot:placeholder>
             <v-row
@@ -32,19 +32,13 @@
         <br><br>
         C.E.O. of Super Combo Records
       </v-col>
-      <v-col cols="12">
-        <v-divider />
-      </v-col>
     </v-row>
-
+    <br><br>
     <BaseHeader title="The Squad" />
 
-    <v-row
-      align="center"
-      justify="center"
-    >
+    <v-row>
       <v-col
-        cols="6"
+        cols="12"
         md="3"
       >
         <v-img
@@ -70,7 +64,7 @@
         </div>
       </v-col>
       <v-col
-        cols="6"
+        cols="12"
         md="3"
       >
         <v-img

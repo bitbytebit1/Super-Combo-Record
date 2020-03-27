@@ -1,12 +1,12 @@
 <template>
   <div>
-    <BaseHeader title="Beat Store1" />
+    <BaseHeader title="Beat Store" />
     <v-row>
       <v-col
         cols="12"
         sm="12"
         md="6"
-        lg="4"
+        lg="3"
         v-for="(song, i) in songs"
         :key="i"
       >

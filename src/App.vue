@@ -20,16 +20,20 @@
         </transition>
       </v-container>
     </v-content>
+
+    <Footer />
   </v-app>
 </template>
 
 <script>
 import NavBar from '@/components/Navbar.vue'
+import Footer from '@/components/Footer.vue'
 import BeatStore from '@/views/BeatStore.vue'
 // import Footer from '@/components/Footer/Footer.vue'
 export default {
   components: {
     NavBar,
+    Footer,
     BeatStore
   },
   computed: {
@@ -44,7 +48,10 @@ export default {
 </script>
 <style>
 html { overflow-y: auto }
-
+.theme--dark.v-application {
+    background: #17181C !important;
+    color: #FFFFFF;
+}
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.2s;
