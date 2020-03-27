@@ -14,8 +14,8 @@
           max-height="200"
           max-width="200"
           class="ma-auto"
-          :src="require('@/assets/scr_logo_white.png')"
-          :lazy-src="require('@/assets/scr_logo_white.png')"
+          :src="require('@/assets/scr-header.png')"
+          :lazy-src="require('@/assets/scr-header.png')"
         />
       </v-col>
       <v-col
@@ -30,7 +30,7 @@
           class="mt-10"
         >
           <span
-            class="mx-3 overline"
+            class="mx-3"
             v-if="i"
           >|</span>
           <v-divider vertical />
