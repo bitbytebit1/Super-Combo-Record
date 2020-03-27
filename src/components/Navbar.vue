@@ -1,57 +1,53 @@
 <template>
-  <div>
-    <!-- Header -->
-    <v-app-bar
-      app
-      clipped-left
-      fixed
-      flat
-      hide-on-scroll
+  <v-container>
+    <v-row
+      no-gutters=""
+      align="center"
+      justify="center"
     >
-      <!-- Toggle sidebar button -->
-      <v-app-bar-nav-icon
-        @click.stop="drawer = !drawer"
-        class="white--text"
+      <v-img
+        max-height="200"
+        max-width="200"
+        :src="require('@/assets/scr_logo_white.png')"
+        v-if="$vuetify.breakpoint.smAndDown"
       />
-
-      <!-- Title -->
-      <v-toolbar-title
-        class="title white--text accent-4"
-        @click="$router.push({name: 'Home'})"
+      <v-col
+        v-else
+        cols="12"
+        sm="2"
+        class="text-center justify-center"
       >
-        Super Combo Records
-      </v-toolbar-title>
-    </v-app-bar>
-
-    <!-- Left side draw -->
-    <v-navigation-drawer
-      app
-      clipped
-      v-model="drawer"
-      disable-route-watcher
-      color="navbar"
-    >
-      <v-list
-        dense
+        <v-row no-gutters>
+          <v-col>
+            <v-img
+              max-height="200"
+              max-width="200"
+              :src="require('@/assets/scr_logo_white.png')"
+            />
+          </v-col>
+        </v-row>
+      </v-col>
+      <v-col
+        cols="12"
+        md="10"
+        class="text-sm-center text-md-right mb-4"
+        align-self="end"
       >
-        <v-list-item
+        <span
           v-for="item in menuItems"
-          active-class="white--text"
           :key="item.title"
-          :to="item.link"
         >
-          <!-- <v-list-item-action>
-            <v-icon>{{ item.icon }}</v-icon>
-          </v-list-item-action> -->
-          <v-list-item-content>
-            <v-list-item-title class="subtitle-1">
-              {{ item.text }}
-            </v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-      </v-list>
-    </v-navigation-drawer>
-  </div>
+          <router-link
+            :to="{name: item.link}"
+            active-class="red--text"
+            class="white--text subtitle-1"
+          >
+            {{ item.text }}
+          </router-link>
+        </span>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
@@ -64,11 +60,11 @@ export default {
   computed: {
     menuItems () {
       const menuItems = [
-        { text: 'Home', link: '/' },
-        { text: 'About us', link: '/about' },
-        { text: 'Beat store', link: '/beat-store' },
-        { text: 'Merchandise', link: '/merchandise' },
-        { text: 'Contact', link: '/contact' }
+        // { text: 'HOME', link: 'Home' },
+        { text: 'ABOUT', link: 'AboutUs' },
+        { text: 'CONTACT', link: 'Contact' },
+        // { text: 'MERCHANDISE', link: 'Merchandise' },
+        { text: 'BEATS', link: 'BeatStore' }
       ]
       return menuItems
     },
@@ -86,5 +82,7 @@ export default {
 </script>
 
 <style>
-
+a{
+  text-decoration: none;
+}
 </style>
