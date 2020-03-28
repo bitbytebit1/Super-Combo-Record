@@ -1,12 +1,6 @@
 <template>
   <v-app>
-    <v-content v-if="$route.name === 'BeatStoreIframe'">
-      <v-container>
-        <section>
-          <BeatStore />
-        </section>
-      </v-container>
-    </v-content>
+    <BeatStore v-if="$route.name === 'BeatStoreIframe'" />
     <div v-else>
       <NavBar />
       <v-content>
