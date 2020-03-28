@@ -33,17 +33,7 @@
           <v-img
             :src="require('@/assets/scr-footer.png')"
             :lazy-src="require('@/assets/scr-footer.png')"
-          >
-            <template v-slot:placeholder>
-              <v-row
-                class="fill-height ma-0"
-                align="center"
-                justify="center"
-              >
-                <Spinner />
-              </v-row>
-            </template>
-          </v-img>
+          />
         </v-col>
         <v-col
           cols="12"

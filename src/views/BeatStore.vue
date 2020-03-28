@@ -13,7 +13,7 @@
         <BeatStoreAudio
           :id="i"
           :title="song.title"
-          :file="`./Songs/${song.file}`"
+          :file="`/Songs/${song.file}`"
           :price="song.price"
           :buttons="song.buttons"
         />
