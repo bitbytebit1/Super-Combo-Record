@@ -1,27 +1,38 @@
 <template>
   <v-app>
-    <NavBar />
-    <v-content>
+    <v-content v-if="$route.name === 'BeatStoreIframe'">
       <v-container>
-        <transition
-          :key="$route.fullPath"
-          name="fade"
-          mode="out-in"
-        >
-          <router-view
-            v-if="!showBeatStore"
-          />
-        </transition>
-        <transition
-          :key="$route.fullPath"
-          name="fade"
-        >
-          <BeatStore v-show="showBeatStore" />
-        </transition>
+        <section>
+          <BeatStore />
+        </section>
       </v-container>
     </v-content>
+    <div v-else>
+      <NavBar />
+      <v-content>
+        <v-container>
+          <transition
+            :key="$route.fullPath"
+            name="fade"
+            mode="out-in"
+          >
+            <keep-alive>
+              <router-view
+                v-if="!showBeatStore"
+              />
+            </keep-alive>
+          </transition>
+          <transition
+            :key="$route.fullPath"
+            name="fade"
+          >
+            <BeatStore v-show="showBeatStore" />
+          </transition>
+        </v-container>
+      </v-content>
 
-    <Footer />
+      <Footer />
+    </div>
   </v-app>
 </template>
 

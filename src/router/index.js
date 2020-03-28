@@ -39,6 +39,11 @@ const routes = [
     path: '/beat-store',
     name: 'BeatStore',
     component: () => import(/* webpackChunkName: "BeatStore" */ '../views/BeatStore.vue')
+  },
+  {
+    path: '/beat-store-iframe',
+    name: 'BeatStoreIframe',
+    component: () => import(/* webpackChunkName: "BeatStore" */ '../views/BeatStore.vue')
   }
 ]
 
