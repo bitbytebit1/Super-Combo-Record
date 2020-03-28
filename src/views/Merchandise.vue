@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="min-height:700px;">
     <BaseHeader
       title="Merchandise"
     />
@@ -15,8 +15,8 @@
           class="row"
         >
           <v-col
-            v-for="(item, i) in items"
-            :key="i"
+            v-for="(item) in items"
+            :key="item.id"
             cols="12"
             sm="4"
             class="list-item"
