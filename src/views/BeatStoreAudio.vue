@@ -36,14 +36,15 @@
           >
             mdi-play
           </v-icon>
-          <!-- <v-icon
+          <v-icon
+            v-else
             color="white"
           >
             mdi-pause
-          </v-icon> -->
-          <Spinner
+          </v-icon>
+          <!-- <Spinner
             v-else
-          />
+          /> -->
         </transition>
       </v-btn>
       <!-- NEXT -->
@@ -206,12 +207,12 @@
   </v-card>
 </template>
 <script>
-import Spinner from '@/components/Spinner.vue'
+// import Spinner from '@/components/Spinner.vue'
 const formatTime = second => new Date(second * 1000).toISOString().substr(14, 5)
 export default {
   name: 'VuetifyAudio',
   components: {
-    Spinner
+    // Spinner
   },
   props: {
     buttons: {
@@ -438,6 +439,16 @@ export default {
 }
 </script>
 <style>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter {
+  opacity: 0;
+}
+.fade-leave-to {
+  opacity: 0;
+}
 
 .v-list .v-list-item--active {
     color: antiquewhite!important;
