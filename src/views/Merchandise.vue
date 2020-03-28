@@ -15,8 +15,8 @@
           class="row"
         >
           <v-col
-            v-for="(item) in items"
-            :key="item.id"
+            v-for="(item, i) in items"
+            :key="i"
             cols="12"
             sm="4"
             class="list-item"
