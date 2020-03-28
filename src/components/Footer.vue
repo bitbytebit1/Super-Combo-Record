@@ -17,7 +17,6 @@
           </div>
           <div
             class="text--darken-3 red--text body-2"
-            id="hits"
           >
             BECAUSE WE GOT THEM HITS
           </div><br>
@@ -38,17 +37,16 @@
         <v-col
           cols="12"
           sm="4"
+          class="text-right"
         >
-          <div class="font-weight-bold body-2">
-            UPCOMING ARTISTS
+          <div class="font-weight-bold body-2 ml-12">
+            UPCOMING
           </div>
-          <div class="font-weight-light body-2">
-            <ul>
-              <li>Depsoul</li>
-              <li>Vanita</li>
-              <li>Xandra</li>
-              <li>K Triggz</li>
-            </ul>
+          <div class="font-weight-light body-2 ml-12">
+            Depsoul<br>
+            Vanita<br>
+            Xandra<br>
+            K Triggz<br>
           </div>
         </v-col>
       </v-row>
@@ -63,9 +61,6 @@ export default {
 </script>
 
 <style>
-#hits{
-    letter-spacing: 0.5em;
-}
 .v-footer {
     background: #17181C !important;
     color: #FFFFFF;
