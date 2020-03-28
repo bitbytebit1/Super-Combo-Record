@@ -48,18 +48,24 @@ export default {
 </script>
 <style>
 html { overflow-y: auto }
+
 .theme--dark.v-application {
     background: #17181C !important;
     color: #FFFFFF;
 }
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.2s;
+
+.pointer {
+  cursor: pointer;
 }
-.fade-enter {
+
+.route-fade-enter-active,
+.route-fade-leave-active {
+  transition: opacity 0.1s;
+}
+.route-fade-enter {
   opacity: 0;
 }
-.fade-leave-to {
+.route-fade-leave-to {
   opacity: 0;
 }
 </style>

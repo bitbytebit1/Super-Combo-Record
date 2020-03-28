@@ -3,13 +3,17 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import vuetify from './plugins/vuetify'
-// import 'roboto-fontface/css/roboto/roboto-fontface.css'
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
-import AudioVisual from 'vue-audio-visual'
+
 import BaseHeader from '@/components/BaseHeader.vue'
 
+import AudioVisual from 'vue-audio-visual'
+import Transitions from 'vue2-transitions'
+
 Vue.component('BaseHeader', BaseHeader)
+
 Vue.use(AudioVisual)
+Vue.use(Transitions)
 
 Vue.config.productionTip = false
 

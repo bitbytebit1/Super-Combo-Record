@@ -6,7 +6,7 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: () => import(/* webpackChunkName: "Home" */ '../views/Home.vue')
+    component: () => import(/* webpackChunkName: "Home" */ '../views/AboutUs.vue')
   },
   {
     path: '/contact',
@@ -19,9 +19,21 @@ const routes = [
     component: () => import(/* webpackChunkName: "AboutUs" */ '../views/AboutUs.vue')
   },
   {
-    path: '/merchandise',
+    path: '/merchandise/all',
     name: 'Merchandise',
-    component: () => import(/* webpackChunkName: "AboutUs" */ '../views/Merchandise.vue')
+    component: () => import(/* webpackChunkName: "Merchandise" */ '../views/Merchandise.vue')
+  },
+  {
+    path: '/merchandise/:category',
+    name: 'MerchandiseCategory',
+    props: true,
+    component: () => import(/* webpackChunkName: "Merchandise" */ '../views/Merchandise.vue')
+  },
+  {
+    path: '/product/:id',
+    name: 'MerchandiseItem',
+    props: true,
+    component: () => import(/* webpackChunkName: "MerchandiseItem" */ '../views/MerchandiseItem.vue')
   },
   {
     path: '/beat-store',
