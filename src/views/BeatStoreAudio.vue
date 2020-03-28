@@ -2,111 +2,115 @@
   <v-card
     :class="isPaused? 'v-card--outlined' : 'v-card--playing'"
   >
-    <v-img
-      aspect-ratio="1"
-      src="11"
-      min-height="250"
+    <v-card-text
       v-ripple
       class="song-image outlined"
-      style="display:flex;justify-content:center;align-items:center;"
+      style="display:flex;justify-content:center;align-items:center;position:relative"
       @click="playing ? pause() : play()"
     >
-      <v-row
-        class="fill-height ma-0"
-        align="center"
-        justify="center"
+      <!-- PREVIOUS -->
+      <v-btn
+        v-if="showControls"
+        class="d-inline-block white--text mr-2 "
+        outlined
+        icon
+        @click="previous"
       >
-        <!-- PREVIOUS -->
-        <v-btn
-          v-if="showControls"
-          class="d-inline-block white--text mr-2 "
-          outlined
-          icon
-          @click="previous"
+        <v-icon>
+          mdi-skip-previous
+        </v-icon>
+      </v-btn>
+      <!-- PLAY -->
+      <v-btn
+        class="d-inline-block grey--text text--lighten-4 "
+        x-large
+        icon
+        :disabled="!loaded"
+      >
+        <transition
+          name="fade"
+          mode="out-in"
         >
-          <v-icon>
-            mdi-skip-previous
-          </v-icon>
-        </v-btn>
-        <!-- PLAY -->
-        <v-btn
-          class="d-inline-block grey--text text--lighten-4 "
-          x-large
-          icon
-          :disabled="!loaded"
-        >
-          <transition
-            name="fade"
-            mode="out-in"
+          <v-icon
+            v-if="!playing"
           >
-            <v-icon
-              v-if="!playing"
-            >
-              mdi-play
-            </v-icon>
-            <!-- <v-icon
+            mdi-play
+          </v-icon>
+          <!-- <v-icon
             color="white"
           >
             mdi-pause
           </v-icon> -->
-            <Spinner
-              v-else
-            />
-          </transition>
-        </v-btn>
-        <!-- NEXT -->
-        <v-btn
-          v-if="showControls"
-          class="d-inline-block white--text ml-2"
-          outlined
-          icon
-          @click="next"
+          <Spinner
+            v-else
+          />
+        </transition>
+      </v-btn>
+      <!-- NEXT -->
+      <v-btn
+        v-if="showControls"
+        class="d-inline-block white--text ml-2"
+        outlined
+        icon
+        @click="next"
+      >
+        <v-icon>
+          mdi-skip-next
+        </v-icon>
+      </v-btn>
+      <!-- VOLUME -->
+      <div
+        v-if="showControls"
+        id="right"
+        class="hidden-xs-only d"
+        style="displa"
+        @wheel.prevent="onWheel"
+        @click.stop
+      >
+        <v-speed-dial
+          transition="none"
+          open-on-hover
         >
-          <v-icon>
-            mdi-skip-next
-          </v-icon>
-        </v-btn>
-        <!-- VOLUME -->
-        <div
-          v-if="showControls"
-          id="right"
-          class="hidden-xs-only d"
-          style="displa"
-          @wheel.prevent="onWheel"
-          @click.stop
-        >
-          <v-speed-dial
-            transition="none"
-            open-on-hover
+          <v-btn
+            slot="activator"
+            fab
+            hover
+            icon
+            outline
+            small
+            @click.stop="toggleMute"
           >
-            <v-btn
-              slot="activator"
-              fab
-              hover
-              icon
-              outline
-              small
-              @click.stop="toggleMute"
+            <v-icon>{{ volIcon }}</v-icon>
+          </v-btn>
+          <div
+            class="slider-wrapper ma-0 pa-0"
+          >
+            <input
+              v-model="volume"
+              class="vol-slider pointer"
+              type="range"
+              min="0"
+              max="10"
+              step="0.01"
+              @input="volumeChange"
             >
-              <v-icon>{{ volIcon }}</v-icon>
-            </v-btn>
-            <div
-              class="slider-wrapper ma-0 pa-0"
-            >
-              <input
-                v-model="volume"
-                class="vol-slider pointer"
-                type="range"
-                min="0"
-                max="10"
-                step="0.01"
-                @input="volumeChange"
-              >
-            </div>
-          </v-speed-dial>
-        </div>
-      </v-row>
-    </v-img>
+          </div>
+        </v-speed-dial>
+      </div>
+      <transition name="fade">
+        <av-bars
+          v-show="playing"
+          style="position:absolute;bottom:0"
+          caps-color="#FFF"
+          :bar-color="['#F44336', '#F44336', '#F44336']"
+          :canv-width="264"
+          :caps-height="2"
+          :audio-src="file"
+          :audio-class="`scr-player-${id} d-none`"
+        />
+      </transition>
+    </v-card-text>
+
     <!-- TITLE -->
     <v-card-text
       v-text="title"
@@ -191,13 +195,14 @@
         </v-list>
       </v-menu>
     </div>
-    <audio
+    <!-- <audio
       :id="`scr-player-${id}`"
       ref="player"
       @ended="ended"
       @canplay="canPlay"
       :src="file"
     />
+    {{ file }} -->
   </v-card>
 </template>
 <script>
@@ -355,6 +360,7 @@ export default {
       this.audio.load()
     },
     _handleLoaded: function () {
+      console.log('_handleLoaded')
       if (this.audio.readyState >= 2) {
         if (this.audio.duration === Infinity) {
           // Fix duration for streamed audio source or blob based
@@ -378,9 +384,9 @@ export default {
     _handlePlayingUI: function (e) {
       this.percentage = this.audio.currentTime / this.audio.duration * 100
       this.currentTime = formatTime(this.audio.currentTime)
-      this.playing = true
     },
     _handlePlayPause: function (e) {
+      console.log('_handlePlayPause')
       this.playing = e.type === 'play'
       this.paused = e.type === 'pause'
       if (e.type === 'play' && this.firstPlay) {
@@ -390,6 +396,7 @@ export default {
           this.firstPlay = false
         }
       }
+      // Pause other players
       var audios = document.getElementsByTagName('audio')
       if (e.type === 'play') {
         for (var i = 0, len = audios.length; i < len; i++) {
@@ -403,11 +410,12 @@ export default {
       }
     },
     _handleEnded () {
+      console.log('()')
       this.paused = this.playing = false
       const query = document.getElementById('scr-player-' + (this.id + 1)).play()
       console.log(query)
     },
-    init: function () {
+    init () {
       this.audio.addEventListener('timeupdate', this._handlePlayingUI)
       this.audio.addEventListener('loadeddata', this._handleLoaded)
       this.audio.addEventListener('pause', this._handlePlayPause)
@@ -416,7 +424,8 @@ export default {
     }
   },
   mounted () {
-    this.audio = this.$refs.player
+    // this.audio = this.$refs.player
+    this.audio = document.getElementsByClassName('scr-player-' + this.id)[0]
     this.init()
   },
   beforeDestroy () {
@@ -434,7 +443,7 @@ export default {
     color: antiquewhite!important;
 }
 .song-image{
-  height: 10px;
+  height: 200px;
   box-sizing:border-box;
 }
 .outlined {

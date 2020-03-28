@@ -5,9 +5,12 @@ import store from './store'
 import vuetify from './plugins/vuetify'
 // import 'roboto-fontface/css/roboto/roboto-fontface.css'
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
-
+import AudioVisual from 'vue-audio-visual'
 import BaseHeader from '@/components/BaseHeader.vue'
+
 Vue.component('BaseHeader', BaseHeader)
+Vue.use(AudioVisual)
+
 Vue.config.productionTip = false
 
 new Vue({
