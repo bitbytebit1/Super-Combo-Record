@@ -11,9 +11,10 @@
         class="text-center justify-center"
       >
         <v-img
+          @click="$router.push({name: 'AboutUs'})"
           max-height="200"
           max-width="200"
-          class="ma-auto"
+          class="ma-auto pointer"
           :src="require('@/assets/scr-header.png')"
           :lazy-src="require('@/assets/scr-header.png')"
         />
@@ -67,10 +68,10 @@ export default {
 #nav {
   min-height: 193px;
 }
-#nav a{
+a{
   text-decoration: none;
 }
-#nav a:not(.router-link-exact-active){
+a:not(.router-link-exact-active){
   color: rgb(215, 215, 215) !important;
 }
 </style>
