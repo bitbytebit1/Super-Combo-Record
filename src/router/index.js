@@ -5,8 +5,7 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    name: 'Home',
-    component: () => import(/* webpackChunkName: "Home" */ '../views/AboutUs.vue')
+    redirect: '/admin'
   },
   {
     path: '/contact',
@@ -17,11 +16,6 @@ const routes = [
     path: '/about',
     name: 'AboutUs',
     component: () => import(/* webpackChunkName: "AboutUs" */ '../views/AboutUs.vue')
-  },
-  {
-    path: '/merchandise/all',
-    name: 'Merchandise',
-    component: () => import(/* webpackChunkName: "Merchandise" */ '../views/Merchandise.vue')
   },
   {
     path: '/merchandise/:category',
@@ -46,9 +40,17 @@ const routes = [
     component: () => import(/* webpackChunkName: "BeatStore" */ '../views/BeatStore.vue')
   }
 ]
+if (process.env.NODE_ENV === 'development') {
+  routes.push(
+    {
+      path: '/admin',
+      name: 'Admin',
+      component: () => import(/* webpackChunkName: "BeatStore" */ '../views/Admin.vue')
+    }
+  )
+}
 
 const router = new VueRouter({
-  mode: 'hash',
   routes
 })
 

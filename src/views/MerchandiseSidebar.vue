@@ -11,7 +11,7 @@
       All
     </router-link> -->
     <div
-      v-for="(item, i) in $store.getters['Products/getProductCategories']()"
+      v-for="(item, i) in $store.getters['Products/getProductTypes']()"
       :key="i"
       class="text-capitalize"
     >

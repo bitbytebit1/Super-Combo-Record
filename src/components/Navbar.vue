@@ -53,12 +53,16 @@ export default {
   data () {
     return {
       menuItems: [
-        // { text: 'HOME', link: 'Home' },
         { text: 'ABOUT', link: 'AboutUs' },
         { text: 'CONTACT', link: 'Contact' },
-        { text: 'MERCHANDISE', link: 'Merchandise' },
+        { text: 'MERCHANDISE', link: 'MerchandiseCategory' },
         { text: 'BEATS', link: 'BeatStore' }
       ]
+    }
+  },
+  created () {
+    if (process.env.NODE_ENV === 'development') {
+      this.menuItems.unshift({ text: 'ADMIN', link: 'Admin' })
     }
   }
 }

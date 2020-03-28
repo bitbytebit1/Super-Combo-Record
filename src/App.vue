@@ -1,32 +1,30 @@
 <template>
   <v-app>
     <BeatStore v-if="$route.name === 'BeatStoreIframe'" />
-    <div v-else>
-      <NavBar />
-      <v-content>
-        <v-container>
-          <transition
-            :key="$route.fullPath"
-            name="fade"
-            mode="out-in"
-          >
-            <keep-alive>
-              <router-view
-                v-if="!showBeatStore"
-              />
-            </keep-alive>
-          </transition>
-          <transition
+    <!-- <div v-else> -->
+    <NavBar />
+    <v-content>
+      <v-container>
+        <transition
+          :key="$route.fullPath"
+          name="route-fade"
+          mode="out-in"
+        >
+          <keep-alive>
+            <router-view />
+          </keep-alive>
+        </transition>
+        <!-- <transition
             :key="$route.fullPath"
             name="fade"
           >
             <BeatStore v-show="showBeatStore" />
-          </transition>
-        </v-container>
-      </v-content>
+          </transition> -->
+      </v-container>
+    </v-content>
 
-      <Footer />
-    </div>
+    <Footer />
+    <!-- </div> -->
   </v-app>
 </template>
 
@@ -53,6 +51,9 @@ export default {
 </script>
 <style>
 html { overflow-y: auto }
+.v-dialog {
+  box-shadow: none!important;
+}
 
 .theme--dark.v-application {
     background: #17181C !important;

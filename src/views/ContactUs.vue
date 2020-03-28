@@ -25,8 +25,8 @@
       >
         <v-row>
           <v-col
-            cols="6"
-            sm=""
+            cols="12"
+            sm="6"
           >
             <div class="red--text">
               ADDRESS
@@ -49,10 +49,11 @@
 
           <v-divider
             vertical
+            class="d-none d-sm-flex"
           />
           <v-col
-            cols="6"
-            sm=""
+            cols="12"
+            sm="6"
           >
             <div class="red--text">
               OPERATING HOURS

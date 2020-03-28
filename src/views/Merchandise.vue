@@ -70,8 +70,8 @@ export default {
   },
   computed: {
     items () {
-      if (this.category) {
-        return this.$store.getters['Products/getProductsByCategory'](this.category)
+      if (this.category !== 'all') {
+        return this.$store.getters['Products/getProductsByType'](this.category)
       } else {
         return this.$store.state.Products.products
       }
@@ -80,7 +80,7 @@ export default {
   props: {
     category: {
       type: String,
-      default: null
+      default: 'all'
     }
   }
 }

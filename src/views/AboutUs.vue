@@ -33,7 +33,7 @@
         C.E.O. of Super Combo Records
       </v-col>
     </v-row>
-    <br><br>
+
     <BaseHeader title="The Squad" />
 
     <v-row>
