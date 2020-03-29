@@ -1,5 +1,8 @@
 <template>
-  <div>
+  <v-card
+    shaped
+    class="pa-4"
+  >
     <!-- {{ $store.getters['Products/getItems']('news') }} -->
     <v-tabs
       color="primary"
@@ -16,16 +19,25 @@
         News
       </v-tab>
       <v-tab-item>
-        <AdminEditor :items="$store.getters['Products/getItems']('products')" />
+        <AdminEditor
+          store-name="products"
+          :items="$store.getters['Products/getItems']('products')"
+        />
       </v-tab-item>
       <v-tab-item>
-        <AdminEditor :items="$store.getters['Products/getItems']('songs')" />
+        <AdminEditor
+          store-name="songs"
+          :items="$store.getters['Products/getItems']('songs')"
+        />
       </v-tab-item>
       <v-tab-item>
-        <AdminEditor :items="$store.getters['Products/getItems']('news')" />
+        <AdminEditor
+          store-name="news"
+          :items="$store.getters['Products/getItems']('news')"
+        />
       </v-tab-item>
     </v-tabs>
-  </div>
+  </v-card>
 </template>
 
 <script>

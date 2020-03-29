@@ -29,7 +29,7 @@
             cols="12"
             class=""
           >
-            <v-card>
+            <v-card  shaped>
               <v-card-text class="text--primary font-weight-bold">
                 <div>
                   All beats available for purchase.

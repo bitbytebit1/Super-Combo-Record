@@ -5,7 +5,7 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    redirect: '/admin'
+    redirect: '/about'
   },
   {
     path: '/contact',
@@ -18,9 +18,14 @@ const routes = [
     component: () => import(/* webpackChunkName: "AboutUs" */ '../views/AboutUs.vue')
   },
   {
+    path: '/news',
+    name: 'News',
+    component: () => import(/* webpackChunkName: "AboutUs" */ '../views/News.vue')
+  },
+  {
     path: '/merchandise-all',
     name: 'MerchandiseAll',
-    component: () => import(/* webpackChunkName: "Merchandise" */ '../views/Merchandise.vue')
+    redirect: '/merchandise/all'
   },
   {
     path: '/merchandise/:category',

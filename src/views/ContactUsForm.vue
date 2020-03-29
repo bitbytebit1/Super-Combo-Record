@@ -20,7 +20,7 @@
         v-else
         cols="12"
       >
-        <!-- <v-card> -->
+        <!-- <v-card  shaped> -->
         <v-form
           id="contactForm"
           ref="contactForm"
@@ -93,7 +93,7 @@
             </v-col>
           </v-row>
         </v-form>
-        <!-- </v-card> -->
+        <!-- </v-card  shaped> -->
       </v-col>
     </transition>
     <iframe

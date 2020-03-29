@@ -54,9 +54,10 @@ export default {
     return {
       menuItems: [
         { text: 'ABOUT', link: 'AboutUs' },
+        { text: 'BEATS', link: 'BeatStore' },
         { text: 'CONTACT', link: 'Contact' },
         { text: 'MERCHANDISE', link: 'MerchandiseAll' },
-        { text: 'BEATS', link: 'BeatStore' }
+        { text: 'NEWS', link: 'News' }
       ]
     }
   },

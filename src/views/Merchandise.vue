@@ -22,6 +22,7 @@
             class="list-item"
           >
             <v-card
+              shaped
               :to="{ name: 'MerchandiseItem', params: { id: item.id } }"
             >
               <v-img
@@ -70,6 +71,7 @@ export default {
   },
   computed: {
     items () {
+      console.log(this.category)
       if (this.category !== 'all') {
         return this.$store.getters['Products/getProductsByType'](this.category)
       } else {

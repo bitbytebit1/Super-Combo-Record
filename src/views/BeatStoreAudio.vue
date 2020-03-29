@@ -1,5 +1,6 @@
 <template>
   <v-card
+    shaped
     :class="isPaused? 'v-card--outlined' : 'v-card--playing'"
   >
     <v-card-text

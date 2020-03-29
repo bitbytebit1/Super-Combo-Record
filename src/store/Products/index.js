@@ -37,6 +37,9 @@ export default {
     }
   },
   mutations: {
+    updateItems: (state, payload) => {
+      state[payload.name] = payload.items
+    }
   },
   actions: {
   }
