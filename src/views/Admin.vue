@@ -7,7 +7,7 @@
       slider-color="primary"
     >
       <v-tab>
-        Merchanise
+        Merchandise
       </v-tab>
       <v-tab>
         Beats
