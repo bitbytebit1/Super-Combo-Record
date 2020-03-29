@@ -251,7 +251,7 @@ export default {
     },
 
     saveFile: function (array) {
-      const data = JSON.stringify(array)
+      const data = JSON.stringify(array, null, 2)
       const blob = new Blob([data], { type: 'text/plain' })
       const e = document.createEvent('MouseEvents')
       const a = document.createElement('a')
