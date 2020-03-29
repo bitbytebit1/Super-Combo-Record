@@ -66,7 +66,7 @@ html { overflow-y: auto }
 
 .route-fade-enter-active,
 .route-fade-leave-active {
-  transition: opacity 0.1s;
+  transition: opacity 0.2s;
 }
 .route-fade-enter {
   opacity: 0;

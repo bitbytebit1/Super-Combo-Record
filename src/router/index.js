@@ -18,6 +18,11 @@ const routes = [
     component: () => import(/* webpackChunkName: "AboutUs" */ '../views/AboutUs.vue')
   },
   {
+    path: '/merchandise-all',
+    name: 'MerchandiseAll',
+    component: () => import(/* webpackChunkName: "Merchandise" */ '../views/Merchandise.vue')
+  },
+  {
     path: '/merchandise/:category',
     name: 'MerchandiseCategory',
     props: true,
@@ -50,8 +55,6 @@ if (process.env.NODE_ENV === 'development') {
   )
 }
 
-const router = new VueRouter({
+export default new VueRouter({
   routes
 })
-
-export default router

@@ -1,5 +1,6 @@
 <template>
   <div>
+    <!-- {{ $store.getters['Products/getItems']('news') }} -->
     <v-tabs
       color="primary"
       dark
@@ -15,13 +16,13 @@
         News
       </v-tab>
       <v-tab-item>
-        <AdminEditor :items="$store.state.Products.products" />
+        <AdminEditor :items="$store.getters['Products/getItems']('products')" />
       </v-tab-item>
       <v-tab-item>
-        <AdminEditor :items="$store.state.Products.products" />
+        <AdminEditor :items="$store.getters['Products/getItems']('songs')" />
       </v-tab-item>
       <v-tab-item>
-        <AdminEditor :items="$store.state.Products.products" />
+        <AdminEditor :items="$store.getters['Products/getItems']('news')" />
       </v-tab-item>
     </v-tabs>
   </div>

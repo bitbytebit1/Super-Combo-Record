@@ -55,7 +55,7 @@ export default {
       menuItems: [
         { text: 'ABOUT', link: 'AboutUs' },
         { text: 'CONTACT', link: 'Contact' },
-        { text: 'MERCHANDISE', link: 'MerchandiseCategory' },
+        { text: 'MERCHANDISE', link: 'MerchandiseAll' },
         { text: 'BEATS', link: 'BeatStore' }
       ]
     }

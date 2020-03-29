@@ -1,8 +1,7 @@
 <template>
   <div>
-    {{ slots }}
     <v-data-table
-      :items="cItems"
+      :items="localItems"
       :headers="cHeaders"
     >
       <template v-slot:top>
@@ -36,6 +35,7 @@
           >
             Save
           </v-btn>
+
           <v-dialog
             v-model="dialog"
             max-width="600px"
@@ -61,7 +61,7 @@
                     <v-col
                       cols="12"
                       sm="6"
-                      md="12"
+                      md="6"
                       :key="i"
                       v-for="(item, i) in editedItem"
                     >
@@ -126,33 +126,14 @@
           Reset
         </v-btn>
       </template>
-      <template
-        v-for="slot in slots"
-        v-slot:[slot]="scope"
-      >
-        <!-- {{ scope.header.value }} -->
-        {{ scope.item[scope.header.value] }}
-      </template>
     </v-data-table>
-
-    <v-snackbar
-      v-model="snack"
-      :timeout="3000"
-      :color="snackColor"
-    >
-      {{ snackText }}
-      <v-btn
-        text
-        @click="snack = false"
-      >
-        Close
-      </v-btn>
-    </v-snackbar>
   </div>
 </template>
 
 <script>
+
 export default {
+
   props: {
     items: { type: Array, default: () => [] }
   },
@@ -168,17 +149,11 @@ export default {
     }
   },
   data: () => ({
-    slots: ['item.name', 'item.description'],
-    localItems: [],
     dialog: false,
     editedIndex: -1,
     editedItem: {},
-
-    snack: false,
-    snackColor: '',
-    snackText: '',
-    max25chars: v => v.length <= 25 || 'Input too long!',
-    pagination: {}
+    importFile: {},
+    defaultItem: {}
   }),
 
   computed: {
@@ -195,8 +170,7 @@ export default {
       }
     },
     cDefaultItem () {
-      // eslint-disable-next-line
-      let ret = Object.assign({}, this.localItems[0])
+      const ret = Object.assign({}, this.localItems[0])
       const keys = Object.keys(this.localItems[0])
       for (let i = 0; i < keys.length; i++) {
         ret[keys[i]] = ''
@@ -205,14 +179,12 @@ export default {
       return ret
     },
     cHeaders () {
-      const ret = Object.keys(this.localItems[0]).map(row => {
-        return {
-          text: row,
-          align: 'left',
-          value: row,
-          width: 'auto'
-        }
-      })
+      const ret = Object.keys(this.localItems[0]).map(row => ({
+        text: row,
+        align: 'left',
+        value: row,
+        width: 'auto'
+      }))
       ret.push({
         text: 'actions',
         align: 'left',
@@ -223,27 +195,59 @@ export default {
     }
   },
 
+  created () {
+    this.initialize()
+  },
+
   methods: {
-    save () {
-      this.snack = true
-      this.snackColor = 'success'
-      this.snackText = 'Data saved'
+    importChange (e) {
+      console.log(e)
+      try {
+        const files = e.target.files
+        if (!files.length) {
+          alert('No file selected!')
+          return
+        }
+        const file = files[0]
+        const reader = new FileReader()
+        reader.onload = (event) => {
+          console.log('FILE CONTENT', event.target.result)
+        }
+        reader.readAsText(file)
+      } catch (err) {
+        console.error(err)
+      }
+    },
+    initialize () {
+      this.desserts = this.items
     },
 
-    cancel () {
-      this.snack = true
-      this.snackColor = 'error'
-      this.snackText = 'Canceled'
+    editItem (item) {
+      this.editedIndex = this.items.indexOf(item)
+      this.editedItem = Object.assign({}, item)
+      this.dialog = true
     },
 
-    open () {
-      this.snack = true
-      this.snackColor = 'info'
-      this.snackText = 'Dialog opened'
+    deleteItem (item) {
+      const index = this.localItems.indexOf(item)
+      confirm('Are you sure you want to delete this item?') && this.items.splice(index, 1)
     },
 
     close () {
-      // console.log('Dialog closed')
+      this.dialog = false
+      setTimeout(() => {
+        this.editedItem = Object.assign({}, this.cDefaultItem)
+        this.editedIndex = -1
+      }, 300)
+    },
+
+    save () {
+      if (this.editedIndex > -1) {
+        Object.assign(this.localItems[this.editedIndex], this.editedItem)
+      } else {
+        this.desserts.push(this.editedItem)
+      }
+      this.close()
     },
 
     saveFile: function (array) {
@@ -256,17 +260,6 @@ export default {
       a.dataset.downloadurl = ['text/json', a.download, a.href].join(':')
       e.initEvent('click', true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null)
       a.dispatchEvent(e)
-    },
-
-    editItem (item) {
-      this.editedIndex = this.localItems.indexOf(item)
-      this.editedItem = Object.assign({}, item)
-      this.dialog = true
-    },
-
-    deleteItem (item) {
-      const index = this.localItems.indexOf(item)
-      confirm('Are you sure you want to delete this item?') && this.localItems.splice(index, 1)
     }
 
   }
