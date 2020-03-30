@@ -16,14 +16,14 @@
         >
           <v-col
             v-for="(item) in items"
-            :key="item.id"
+            :key="item.sku"
             cols="12"
             sm="4"
             class="list-item"
           >
             <v-card
               shaped
-              :to="{ name: 'MerchandiseItem', params: { id: item.id } }"
+              :to="{ name: 'MerchandiseItem', params: { sku: item.sku } }"
             >
               <v-img
                 :src="require(`@/assets/${item.image}`)"
@@ -69,20 +69,22 @@ export default {
   components: {
     MerchandiseSidebar
   },
-  computed: {
-    items () {
-      console.log(this.category)
-      if (this.category !== 'all') {
-        return this.$store.getters['Products/getProductsByType'](this.category)
-      } else {
-        return this.$store.state.Products.products
-      }
-    }
-  },
   props: {
-    category: {
+    type: {
       type: String,
       default: 'all'
+    }
+  },
+  computed: {
+    items () {
+      console.log(this.type, this.$store.getters['Products/getItems']('products'))
+      if (this.category === 'all') {
+        return this.$store.getters['Products/getItems']('products')
+      }
+      if (this.category !== 'all') {
+        return this.$store.getters['Products/filterItemsByProperty']('products', 'type', this.type)
+      }
+      return 1
     }
   }
 }

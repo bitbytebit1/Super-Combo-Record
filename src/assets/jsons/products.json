@@ -1,6 +1,6 @@
 [
   {
-    "id": "Facemask-0",
+    "sku": "Facemask-0",
     "digital": false,
     "name": "Facemask",
     "description": "Make a statement with this stylish facemask.\nMaterial: Cotton\nSize: 14.5*11 cm / 5.7*4.3 inch",
@@ -13,7 +13,7 @@
     "url": "/product/Facemask-0"
   },
   {
-    "id": "Facemask-1",
+    "sku": "Facemask-1",
     "digital": false,
     "name": "Facemask",
     "description": "Make a statement with this stylish facemask.\nMaterial: Cotton\nSize: 14.5*11 cm / 5.7*4.3 inch",
@@ -26,7 +26,7 @@
     "url": "/product/Facemask-1"
   },
   {
-    "id": "Facemask-2",
+    "sku": "Facemask-2",
     "digital": false,
     "name": "Facemask",
     "description": "Make a statement with this stylish facemask.\nMaterial: Cotton\nSize: 14.5*11 cm / 5.7*4.3 inch",
@@ -39,7 +39,7 @@
     "url": "/product/Facemask-2"
   },
   {
-    "id": "Facemask-3",
+    "sku": "Facemask-3",
     "digital": false,
     "name": "Facemask",
     "description": "Make a statement with this stylish facemask.\nMaterial: Cotton\nSize: 14.5*11 cm / 5.7*4.3 inch",
@@ -52,7 +52,7 @@
     "url": "/product/Facemask-3"
   },
   {
-    "id": "Facemask-4",
+    "sku": "Facemask-4",
     "digital": false,
     "name": "Facemask",
     "description": "Make a statement with this stylish facemask.\nMaterial: Cotton\nSize: 14.5*11 cm / 5.7*4.3 inch",
@@ -65,7 +65,7 @@
     "url": "/product/Facemask-4"
   },
   {
-    "id": "Facemask-5",
+    "sku": "Facemask-5",
     "digital": false,
     "name": "Facemask",
     "description": "Make a statement with this stylish facemask.\nMaterial: Cotton\nSize: 14.5*11 cm / 5.7*4.3 inch",
@@ -78,7 +78,7 @@
     "url": "/product/Facemask-5"
   },
   {
-    "id": "Facemask-6",
+    "sku": "Facemask-6",
     "digital": false,
     "name": "Facemask",
     "description": "Make a statement with this stylish facemask.\nMaterial: Cotton\nSize: 14.5*11 cm / 5.7*4.3 inch",
@@ -91,7 +91,7 @@
     "url": "/product/Facemask-6"
   },
   {
-    "id": "Facemask-7",
+    "sku": "Facemask-7",
     "digital": false,
     "name": "Facemask",
     "description": "Make a statement with this stylish facemask.\nMaterial: Cotton\nSize: 14.5*11 cm / 5.7*4.3 inch",
@@ -104,7 +104,7 @@
     "url": "/product/Facemask-7"
   },
   {
-    "id": "Facemask-8",
+    "sku": "Facemask-8",
     "digital": false,
     "name": "Facemask",
     "description": "Make a statement with this stylish facemask.\nMaterial: Cotton\nSize: 14.5*11 cm / 5.7*4.3 inch",
@@ -117,7 +117,7 @@
     "url": "/product/Facemask-8"
   },
   {
-    "id": "Facemask-9",
+    "sku": "Facemask-9",
     "digital": false,
     "name": "Facemask",
     "description": "Make a statement with this stylish facemask.\nMaterial: Cotton\nSize: 14.5*11 cm / 5.7*4.3 inch",
@@ -130,7 +130,7 @@
     "url": "/product/Facemask-9"
   },
   {
-    "id": "Facemask-10",
+    "sku": "Facemask-10",
     "digital": false,
     "name": "Facemask",
     "description": "Make a statement with this stylish facemask.\nMaterial: Cotton\nSize: 14.5*11 cm / 5.7*4.3 inch",

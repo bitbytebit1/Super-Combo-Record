@@ -9,12 +9,13 @@ import BaseHeader from '@/components/BaseHeader.vue'
 
 import AudioVisual from 'vue-audio-visual'
 import Transitions from 'vue2-transitions'
+import date from './filters/date.js'
 
 Vue.component('BaseHeader', BaseHeader)
 
 Vue.use(AudioVisual)
 Vue.use(Transitions)
-
+Vue.filter('date', date.filters.date)
 Vue.config.productionTip = false
 
 new Vue({

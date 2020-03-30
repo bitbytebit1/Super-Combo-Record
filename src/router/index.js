@@ -8,34 +8,34 @@ const routes = [
     redirect: '/about'
   },
   {
-    path: '/contact',
     name: 'Contact',
+    path: '/contact',
     component: () => import(/* webpackChunkName: "Contact" */ '../views/ContactUs.vue')
   },
   {
-    path: '/about',
     name: 'AboutUs',
+    path: '/about',
     component: () => import(/* webpackChunkName: "AboutUs" */ '../views/AboutUs.vue')
   },
   {
-    path: '/news',
     name: 'News',
-    component: () => import(/* webpackChunkName: "AboutUs" */ '../views/News.vue')
+    path: '/news',
+    component: () => import(/* webpackChunkName: "News" */ '../views/News.vue')
   },
   {
-    path: '/merchandise-all',
     name: 'MerchandiseAll',
+    path: '/merchandise-all',
     redirect: '/merchandise/all'
   },
   {
-    path: '/merchandise/:category',
     name: 'MerchandiseCategory',
+    path: '/merchandise/:category',
     props: true,
     component: () => import(/* webpackChunkName: "Merchandise" */ '../views/Merchandise.vue')
   },
   {
-    path: '/product/:id',
     name: 'MerchandiseItem',
+    path: '/product/:id',
     props: true,
     component: () => import(/* webpackChunkName: "MerchandiseItem" */ '../views/MerchandiseItem.vue')
   },
@@ -59,7 +59,7 @@ if (process.env.NODE_ENV === 'development') {
     }
   )
 }
-
-export default new VueRouter({
+const router = new VueRouter({
   routes
 })
+export default router

@@ -1,7 +1,7 @@
 <template>
   <div>
     <BaseHeader
-      :title="item.name"
+      :title="localItem.name"
     />
     <v-row>
       <v-col
@@ -9,8 +9,8 @@
         sm="6"
       >
         <v-img
-          :src="require(`@/assets/${item.image}`)"
-          :lazy-src="require(`@/assets/${item.image}`)"
+          :src="require(`@/assets/${localItem.image}`)"
+          :lazy-src="require(`@/assets/${localItem.image}`)"
           min-height="370"
         />
       </v-col>
@@ -32,7 +32,7 @@
               cols="12"
             >
               <!-- eslint-disable-next-line -->
-              <v-card-text style="white-space: pre-wrap;">{{ item.description }}</v-card-text>
+              <v-card-text style="white-space: pre-wrap;">{{ localItem.description }}</v-card-text>
             </v-col>
             <v-col
               cols="12"
@@ -44,11 +44,11 @@
                   outlined
                   color="red"
                   class="snipcart-add-item white--text"
-                  :data-item-id="item.id"
-                  :data-item-price="item.price"
-                  :data-item-description="item.description"
-                  :data-item-image="item.image"
-                  :data-item-name="item.name"
+                  :data-item-id="localItem.sku"
+                  :data-item-price="localItem.price"
+                  :data-item-description="localItem.description"
+                  :data-item-image="localItem.image"
+                  :data-item-name="localItem.name"
                 >
                   <span class="white--text">
                     Add to cart
@@ -66,15 +66,20 @@
 <script>
 export default {
   props: {
-    id: {
+    sku: {
       type: [Number, String],
       default: null
-    }
+    },
+    item: { type: Object, default: () => {} }
   },
   computed: {
-    item () {
-      console.log(this.$store.getters)
-      return this.$store.getters['Products/getProductById'](this.id)
+    // Allows you to pass in an item or pass sku for look up, disable for production
+    localItem () {
+      if (!this.sku) {
+        return this.item
+      } else {
+        return this.$store.getters['Products/queryItemByProperty']('products', 'sku', this.sku)
+      }
     }
   }
 }

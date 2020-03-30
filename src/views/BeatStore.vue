@@ -13,7 +13,7 @@
         <BeatStoreAudio
           :id="i"
           :title="song.title"
-          :file="`/Songs/${song.file}`"
+          :file="`/beats/tagged/${song.file}`"
           :price="song.price"
           :buttons="song.buttons"
         />
@@ -99,7 +99,7 @@ export default {
         },
         {
           title: 'Legendary',
-          file: 'Legendary MP3 Tagged.mp3',
+          file: 'Legendary.mp3',
           price: ['£10', '£50', '£200'],
           buttons: [
             '<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top"><input type="hidden" name="cmd" value="_s-xclick"><input type="hidden" name="hosted_button_id" value="8LRK75WH7QSPJ"><input type="image" src="https://www.paypalobjects.com/en_US/GB/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal – The safer, easier way to pay online!"><img alt="" border="0" src="https://www.paypalobjects.com/en_GB/i/scr/pixel.gif" width="1" height="1">            </form>',
@@ -119,7 +119,7 @@ export default {
         },
         {
           title: 'Low Lifes',
-          file: 'Low Lifes Tagged.mp3',
+          file: 'Low Lifes.mp3',
           price: ['£10', '£50', '£200'],
           buttons: [
             '<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top"><input type="hidden" name="cmd" value="_s-xclick"><input type="hidden" name="hosted_button_id" value="8LRK75WH7QSPJ"><input type="image" src="https://www.paypalobjects.com/en_US/GB/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal – The safer, easier way to pay online!"><img alt="" border="0" src="https://www.paypalobjects.com/en_GB/i/scr/pixel.gif" width="1" height="1">            </form>',
@@ -149,7 +149,7 @@ export default {
         },
         {
           title: 'Slow ride',
-          file: 'Slow ride MP3 Tagged.mp3',
+          file: 'Slow ride.mp3',
           price: ['£10', '£50', '£200'],
           buttons: [
             '<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top"><input type="hidden" name="cmd" value="_s-xclick"><input type="hidden" name="hosted_button_id" value="8LRK75WH7QSPJ"><input type="image" src="https://www.paypalobjects.com/en_US/GB/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal – The safer, easier way to pay online!"><img alt="" border="0" src="https://www.paypalobjects.com/en_GB/i/scr/pixel.gif" width="1" height="1">            </form>',
@@ -159,7 +159,7 @@ export default {
         },
         {
           title: 'Winning ',
-          file: 'Winning .mp3',
+          file: 'Winning.mp3',
           price: ['£10', '£50', '£200'],
           buttons: [
             '<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top"><input type="hidden" name="cmd" value="_s-xclick"><input type="hidden" name="hosted_button_id" value="8LRK75WH7QSPJ"><input type="image" src="https://www.paypalobjects.com/en_US/GB/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal – The safer, easier way to pay online!"><img alt="" border="0" src="https://www.paypalobjects.com/en_GB/i/scr/pixel.gif" width="1" height="1">            </form>',

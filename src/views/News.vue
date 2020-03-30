@@ -5,38 +5,17 @@
       :key="i"
       cols="12"
     >
-      <v-card
-        shaped
-      >
-        <v-row>
-          <v-col
-            cols="2"
-          >
-            <v-img
-              :src="require('@/assets/scr-footer.png')"
-              :lazy-src="require('@/assets/scr-footer.png')"
-              height="150"
-              width="180"
-            />
-          </v-col>
-          <v-col cols="9">
-            <v-card-title>
-              {{ item.name }}
-            </v-card-title>
-            <v-card-subtitle>
-              Date
-            </v-card-subtitle>
-            <v-card-text v-html="item.description" />
-          </v-col>
-        </v-row>
-      </v-card>
+      <NewsItem :item="item" />
     </v-col>
   </v-row>
 </template>
 
 <script>
+import NewsItem from '@/views/NewsItem.vue'
 export default {
-
+  components: {
+    NewsItem
+  }
 }
 </script>
 

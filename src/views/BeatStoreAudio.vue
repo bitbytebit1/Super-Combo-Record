@@ -175,25 +175,26 @@
           nav
           class="v-card--outlined"
         >
-          <v-list-group
+          <v-list-item
             v-for="(item, i) in purchaseOptions"
             :key="i"
+            @click="1"
           >
-            <template v-slot:activator>
-              <v-list-item-title active-class="white--text">
-                {{ item.title }}
-                <span
-                  v-text="price[i]"
-                  :class="freeColor(price[i], true)"
-                  class="text-center pl-1 "
-                />
-              </v-list-item-title>
-            </template>
-            <div
+            <!-- <template v-slot:activator> -->
+            <v-list-item-title active-class="white--text">
+              {{ item.title }}
+              <span
+                v-text="price[i]"
+                :class="freeColor(price[i], true)"
+                class="text-center pl-1 "
+              />
+            </v-list-item-title>
+            <!-- </template> -->
+            <!-- <div
               class="text-center py-4"
               v-html="buttons[i]"
-            />
-          </v-list-group>
+            /> -->
+          </v-list-item>
         </v-list>
       </v-menu>
     </div>
@@ -362,7 +363,7 @@ export default {
       this.audio.load()
     },
     _handleLoaded: function () {
-      console.log('_handleLoaded')
+      // console.log('_handleLoaded')
       if (this.audio.readyState >= 2) {
         if (this.audio.duration === Infinity) {
           // Fix duration for streamed audio source or blob based
@@ -388,7 +389,7 @@ export default {
       this.currentTime = formatTime(this.audio.currentTime)
     },
     _handlePlayPause: function (e) {
-      console.log('_handlePlayPause')
+      // console.log('_handlePlayPause')
       this.playing = e.type === 'play'
       this.paused = e.type === 'pause'
       if (e.type === 'play' && this.firstPlay) {
@@ -412,10 +413,9 @@ export default {
       }
     },
     _handleEnded () {
-      console.log('()')
       this.paused = this.playing = false
-      const query = document.getElementById('scr-player-' + (this.id + 1)).play()
-      console.log(query)
+      document.getElementById('scr-player-' + (this.id + 1)).play()
+      // console.log(query)
     },
     init () {
       this.audio.addEventListener('timeupdate', this._handlePlayingUI)

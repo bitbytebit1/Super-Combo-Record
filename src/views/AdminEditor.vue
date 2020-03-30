@@ -1,221 +1,319 @@
 <template>
-  <v-data-table
-    :items="localItems"
-    :headers="cHeaders"
-    :search="search"
-    show-group-by
-  >
-    <template v-slot:top>
-      <v-toolbar
-        flat
+  <div>
+    <!-- {{  }} -->
+
+    <v-data-table
+      :items="localItems"
+      :headers="cHeaders"
+      :search="search"
+      ref="table"
+      show-group-by
+    >
+      <template v-slot:top>
+        <v-toolbar
+          flat
+        >
+          <!-- SEARCH BUTTON -->
+          <v-btn
+            icon
+            class="ml-1"
+            @click="showSearch = !showSearch"
+          >
+            <v-icon>search</v-icon>
+          </v-btn>
+
+          <transition
+            name="search-fade"
+            mode="out-in"
+          >
+            <!-- GENERAL INFO -->
+            <div
+              v-if="!showSearch"
+              class="d-flex font-weight-thin"
+              :key="1"
+            >
+              <v-divider
+                class="mx-4"
+                inset
+                vertical
+              />
+
+              <v-toolbar-title>
+                Items - {{ localItems.length }}
+              </v-toolbar-title>
+              <v-divider
+                class="mx-4"
+                inset
+                vertical
+              />
+              <v-toolbar-title>
+                Last - {{ localItems[localItems.length-1].sku }}
+              </v-toolbar-title>
+              <v-divider
+                class="mx-4"
+                inset
+                vertical
+              />
+              <v-toolbar-title>
+                Types - {{ $store.getters['Products/queryItemsUniqueProperty'](storeName, 'subtype').length }}
+              </v-toolbar-title>
+              <v-divider
+                class="mx-4"
+                inset
+                vertical
+              />
+            </div>
+
+            <!-- SEARCH BOX -->
+            <div
+              v-else
+              class="d-flex"
+              :key="2"
+            >
+              <v-divider
+                class="mx-4"
+                inset
+                vertical
+              />
+
+              <v-text-field
+                v-model="search"
+                single-line
+                autofocus
+                dense
+                hide-details
+                clearable
+                label="Search"
+                width="50"
+              />
+              <v-divider
+                class="mx-4"
+                inset
+                vertical
+              />
+              <!-- FILTER BOX -->
+              <v-select
+                :items="Object.keys(localItems[0])"
+                clearable
+                multiple
+                label="Filter by"
+                prepend-icon="mdi-filter"
+                hide-details
+                single-line
+                v-model="selectedFilter"
+              />
+              <v-divider
+                class="mx-4"
+                inset
+                vertical
+              />
+              <div>
+                {{ search ? `Results ${filterLength()}` : '' }}
+              </div>
+            </div>
+          </transition>
+          <v-spacer />
+          <v-divider
+            class="mx-4"
+            inset
+            vertical
+          />
+          <!-- SAVE TO FILE BUTTON -->
+          <v-btn
+            color="primary"
+            dark
+            class="mr-2"
+            @click="saveFile(localItems)"
+          >
+            Save
+          </v-btn>
+
+          <!-- NEW ITEM DIALOG -->
+          <v-dialog
+            v-model="dialog"
+            fullscreen
+            max-width="600px"
+          >
+            <!-- NEW ITEM BUTTON -->
+            <template v-slot:activator="{ on }">
+              <v-btn
+                color="primary"
+                dark
+                v-on="on"
+              >
+                New Item
+              </v-btn>
+            </template>
+            <!-- NEW ITEM CARD -->
+            <v-card>
+              <v-card-title>
+                <span class="headline">{{ formTitle }}</span>
+                <v-spacer />
+                <!-- CARD ACTIONS -->
+                <v-card-actions>
+                  <v-spacer />
+                  <v-btn
+                    outlined
+                    color=""
+                    text
+                    @click="close"
+                  >
+                    Cancel
+                  </v-btn>
+                  <v-btn
+                    outlined
+                    color=""
+                    text
+                    @click="save"
+                  >
+                    Save
+                  </v-btn>
+                </v-card-actions>
+              </v-card-title>
+
+              <!-- INPUT BOXES -->
+              <v-card-text>
+                <v-container>
+                  <v-row no-gutters>
+                    <v-col
+                      cols="12"
+                      sm="6"
+                    >
+                      <v-col
+                        cols="12"
+                        :key="i"
+                        v-for="(item, i) of editedItem"
+                        class="text-capitalize my-2"
+                      >
+                        <!-- INPUTS -->
+                        <div
+                          class="d-inline-block ma-0"
+                          style="width:85px;"
+                        >
+                          {{ i }}
+                        </div>
+
+                        <v-textarea
+                          v-if="i == 'description'"
+                          v-model="editedItem[i]"
+                          hide-details
+                          dense
+                        />
+                        <v-text-field
+                          v-else
+                          class="d-inline-block ml-4"
+                          dense
+                          v-model="editedItem[i]"
+                          hide-details
+                        />
+                      </v-col>
+                    </v-col>
+                    <!-- PREVIEW ITEM -->
+                    <v-col
+                      cols="12"
+                      sm="6"
+                    >
+                      Preview item
+                      <slot
+                        name="item"
+                        :item="editedItem"
+                      />
+                    </v-col>
+                  </v-row>
+                </v-container>
+              </v-card-text>
+            </v-card>
+          </v-dialog>
+        </v-toolbar>
+      </template>
+      <!-- <template v-slot:item.name="{ item }">
+        <v-edit-dialog
+          :return-value.sync="item.name"
+          large
+        >
+          {{ item.name }}
+          <template v-slot:input>
+            <v-text-field
+              v-model="item.name"
+              label="Edit"
+              single-line
+              counter
+            />
+          </template>
+        </v-edit-dialog>
+      </template> -->
+      <!-- <template v-slot:item.sku="{ item }">
+        <v-edit-dialog
+          large
+          :return-value.sync="item.sku"
+        >
+          {{ item.sku }}
+          <template v-slot:input>
+            <v-text-field
+              v-model="item.sku"
+              label="Edit"
+              single-line
+              counter
+            />
+          </template>
+        </v-edit-dialog>
+      </template> -->
+      <template v-slot:item.description="{ item }">
+        <div
+          class="d-inline-block text-truncate"
+          style="max-width: 80px;"
+        >
+          {{ item.description }}
+        </div>
+      </template>
+      <template v-slot:item.actions="{ item }">
+        <v-icon
+          small
+          class="mr-2"
+          @click="editItem(item)"
+        >
+          mdi-pencil
+        </v-icon>
+        <v-icon
+          small
+          @click="deleteItem(item)"
+        >
+          mdi-delete
+        </v-icon>
+      </template>
+
+      <template
+        v-for="(slot, i) in inlineEditSlots"
+        v-slot:[slot]="scope"
       >
-        <v-btn
-          icon
-          class="ml-1"
-          @click="showSearch = !showSearch"
+        <v-edit-dialog
+          :return-value.sync="scope.item[scope.header.value]"
+          :key="`edit-${i}-${scope.header.value}`"
+          large
         >
-          <v-icon>search</v-icon>
-        </v-btn>
-        <v-divider
-          class="mx-4"
-          inset
-          vertical
-        />
-        <!-- <v-fade-transition> -->
-        <div
-          v-if="!showSearch"
-          class="d-flex font-weight-thin"
-        >
-          <v-toolbar-title>
-            Items - {{ localItems.length }}
-          </v-toolbar-title>
-          <v-divider
-            class="mx-4"
-            inset
-            vertical
-          />
-          <v-toolbar-title>
-            Last - {{ localItems[localItems.length-1].sku }}
-          </v-toolbar-title>
-          <v-divider
-            class="mx-4"
-            inset
-            vertical
-          />
-          <v-toolbar-title>
-            Types - {{ $store.getters['Products/queryItemsUniqueProperty'](storeName, 'subtype').length }}
-          </v-toolbar-title>
-          <v-divider
-            class="mx-4"
-            inset
-            vertical
-          />
-        </div>
-        <!-- </v-fade-transition> -->
-        <!-- <v-fade-transition> -->
-        <div
-          v-if="showSearch"
-          class="d-flex"
-        >
-          <v-text-field
-            v-model="search"
-            single-line
-            hide-details
-            autofocus
-            dense
-            clearable
-            label="Search"
-          />
-          <v-divider
-            class="mx-4"
-            inset
-            vertical
-          />
-          <v-select
-            :items="Object.keys(localItems[0])"
-            dense
-            clearable
-            multiple
-            label="Filter by"
-            prepend-icon="mdi-filter"
-            hide-details
-            single-line
-            offset-y
-            deletable-chips
-
-            v-model="selectedFilter"
-          />
-        </div>
-        <!-- </v-fade-transition> -->
-        <!-- <v-fade-transition> -->
-
-        <!-- </v-fade-transition> -->
-
-        <!-- <v-fade-transition> -->
-
-        <v-spacer />
-        <!-- </v-fade-transition> -->
-        <v-divider
-          class="mx-4"
-          inset
-          vertical
-        />
+          {{ scope.item[scope.header.value] }}
+          <template v-slot:input>
+            <v-text-field
+              v-model="scope.item[scope.header.value]"
+              label="Edit"
+              single-line
+              counter
+            />
+          </template>
+        </v-edit-dialog>
+        <!-- {{ scope.header.value }} -->
+        <!-- {{ scope.item[scope.header.value] }} -->
+      </template>
+      <template v-slot:no-data>
         <v-btn
           color="primary"
-          dark
-          class="mr-2"
-          @click="saveFile(localItems)"
+          @click="initialize"
         >
-          Save
+          Reset
         </v-btn>
-
-        <v-dialog
-          v-model="dialog"
-          max-width="600px"
-        >
-          <template v-slot:activator="{ on }">
-            <v-btn
-              color="primary"
-              dark
-              v-on="on"
-            >
-              New Item
-            </v-btn>
-          </template>
-          <v-card shaped>
-            <v-card-title>
-              <span class="headline">{{ formTitle }}</span>
-            </v-card-title>
-
-            <v-card-text>
-              <v-container class="py-0">
-                <v-row>
-                  <v-col
-                    cols="12"
-                    sm="6"
-                    md="12"
-                    :key="i"
-                    v-for="(item, i) of editedItem"
-                    class="text-capitalize"
-                  >
-                    {{ i }}
-                    <v-textarea
-                      v-if="i == 'description'"
-                      v-model="editedItem[i]"
-                      hide-details
-                      dense
-                    />
-                    <v-text-field
-                      v-else
-                      dense
-                      v-model="editedItem[i]"
-                      hide-details
-                    />
-                  </v-col>
-                </v-row>
-              </v-container>
-            </v-card-text>
-
-            <v-card-actions>
-              <v-spacer />
-              <v-btn
-                color="blue darken-1"
-                text
-                @click="close"
-              >
-                Cancel
-              </v-btn>
-              <v-btn
-                color="blue darken-1"
-                text
-                @click="save"
-              >
-                Save
-              </v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-dialog>
-      </v-toolbar>
-    </template>
-    <template v-slot:item.sku="{ item }">
-      <div
-        style="width: 100px;"
-      >
-        {{ item.sku }}
-      </div>
-    </template>
-    <template v-slot:item.description="{ item }">
-      <div
-        class="d-inline-block text-truncate"
-        style="max-width: 80px;"
-      >
-        {{ item.description }}
-      </div>
-    </template>
-    <template v-slot:item.actions="{ item }">
-      <v-icon
-        small
-        class="mr-2"
-        @click="editItem(item)"
-      >
-        mdi-pencil
-      </v-icon>
-      <v-icon
-        small
-        @click="deleteItem(item)"
-      >
-        mdi-delete
-      </v-icon>
-    </template>
-    <template v-slot:no-data>
-      <v-btn
-        color="primary"
-        @click="initialize"
-      >
-        Reset
-      </v-btn>
-    </template>
-  </v-data-table>
+      </template>
+    </v-data-table>
+  </div>
 </template>
 
 <script>
@@ -242,6 +340,7 @@ export default {
   },
   data: () => ({
     search: '',
+    inlineEditSlots: ['item.file', 'item.name', 'item.description', 'item.sku', 'item.img'],
     showSearch: false,
     selectedFilter: [],
     localItems: [],
@@ -285,7 +384,12 @@ export default {
   },
 
   methods: {
-
+    filterLength () {
+      if (!this.$refs.table) return 0
+      if (!this.$refs.table.$children[0].filteredItems) return 0
+      // console.log(this.$refs.table)
+      return this.$refs.table.$children[0].filteredItems.length
+    },
     initialize () {
       this.localItems = Object.assign([], this.items)
       this.editedItem = Object.assign({}, this.cDefaultItem)
@@ -341,14 +445,17 @@ export default {
 </script>
 
 <style>
-.admin-fade-enter-active,
-.admin-fade-leave-active {
-  transition: opacity 1s;
+.v-text-field__suffix{
+  color: whitesmoke !important;
 }
-.admin-fade-enter {
+.search-fade-enter-active,
+.search-fade-leave-active {
+  transition: opacity 0.1s ease;
+}
+.search-fade-enter {
   opacity: 0;
 }
-.admin-fade-leave-to {
+.search-fade-leave-to {
   opacity: 0;
 }
 

@@ -50,7 +50,32 @@ export default {
 }
 </script>
 <style>
-html { overflow-y: auto }
+html {
+  overflow-y: auto;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+    height: 8px;
+    border-radius: 4px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #acacac;
+    border-radius: 5px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #bd5656;
+    border-radius: 4px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #b63535;
+}
 .v-dialog {
   box-shadow: none!important;
 }
