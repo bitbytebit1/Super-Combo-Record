@@ -77,11 +77,10 @@ export default {
   },
   computed: {
     items () {
-      console.log(this.type, this.$store.getters['Products/getItems']('products'))
-      if (this.category === 'all') {
+      if (this.type === 'all') {
         return this.$store.getters['Products/getItems']('products')
       }
-      if (this.category !== 'all') {
+      if (this.type !== 'all') {
         return this.$store.getters['Products/filterItemsByProperty']('products', 'type', this.type)
       }
       return 1

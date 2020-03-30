@@ -25,17 +25,17 @@ const routes = [
   {
     name: 'MerchandiseAll',
     path: '/merchandise-all',
-    redirect: '/merchandise/all'
+    redirect: { name: 'MerchandiseCategory', params: { type: 'all' } }
   },
   {
     name: 'MerchandiseCategory',
-    path: '/merchandise/:category',
+    path: '/merchandise/:type',
     props: true,
     component: () => import(/* webpackChunkName: "Merchandise" */ '../views/Merchandise.vue')
   },
   {
     name: 'MerchandiseItem',
-    path: '/product/:id',
+    path: '/product/:sku',
     props: true,
     component: () => import(/* webpackChunkName: "MerchandiseItem" */ '../views/MerchandiseItem.vue')
   },
@@ -50,15 +50,15 @@ const routes = [
     component: () => import(/* webpackChunkName: "BeatStore" */ '../views/BeatStore.vue')
   }
 ]
-if (process.env.NODE_ENV === 'development') {
-  routes.push(
-    {
-      path: '/admin',
-      name: 'Admin',
-      component: () => import(/* webpackChunkName: "BeatStore" */ '../views/Admin.vue')
-    }
-  )
-}
+// if (process.env.NODE_ENV === 'development') {
+routes.push(
+  {
+    path: '/admin',
+    name: 'Admin',
+    component: () => import(/* webpackChunkName: "BeatStore" */ '../views/Admin.vue')
+  }
+)
+// }
 const router = new VueRouter({
   routes
 })

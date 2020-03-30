@@ -1,13 +1,14 @@
 <template>
   <div>
     <!-- {{  }} -->
-
     <v-data-table
       :items="localItems"
       :headers="cHeaders"
       :search="search"
       ref="table"
+      item-key="sku"
       show-group-by
+      show-expand
     >
       <template v-slot:top>
         <v-toolbar
@@ -132,7 +133,6 @@
           <v-dialog
             v-model="dialog"
             fullscreen
-            max-width="600px"
           >
             <!-- NEW ITEM BUTTON -->
             <template v-slot:activator="{ on }">
@@ -174,16 +174,22 @@
               <!-- INPUT BOXES -->
               <v-card-text>
                 <v-container>
-                  <v-row no-gutters>
+                  <v-row>
                     <v-col
                       cols="12"
                       sm="6"
+                      style="border-right: thin solid rgba(255, 255, 255, 0.12) !important;"
                     >
+                      <BaseHeader
+                        title="Details"
+                        cclass="title"
+                      />
+
                       <v-col
                         cols="12"
                         :key="i"
                         v-for="(item, i) of editedItem"
-                        class="text-capitalize my-2"
+                        class="text-capitalize"
                       >
                         <!-- INPUTS -->
                         <div
@@ -208,14 +214,18 @@
                         />
                       </v-col>
                     </v-col>
+
                     <!-- PREVIEW ITEM -->
                     <v-col
                       cols="12"
                       sm="6"
                     >
-                      Preview item
+                      <BaseHeader
+                        title="Preview"
+                        cclass="title"
+                      />
                       <slot
-                        name="item"
+                        name="preview-item"
                         :item="editedItem"
                       />
                     </v-col>
@@ -226,64 +236,9 @@
           </v-dialog>
         </v-toolbar>
       </template>
-      <!-- <template v-slot:item.name="{ item }">
-        <v-edit-dialog
-          :return-value.sync="item.name"
-          large
-        >
-          {{ item.name }}
-          <template v-slot:input>
-            <v-text-field
-              v-model="item.name"
-              label="Edit"
-              single-line
-              counter
-            />
-          </template>
-        </v-edit-dialog>
-      </template> -->
-      <!-- <template v-slot:item.sku="{ item }">
-        <v-edit-dialog
-          large
-          :return-value.sync="item.sku"
-        >
-          {{ item.sku }}
-          <template v-slot:input>
-            <v-text-field
-              v-model="item.sku"
-              label="Edit"
-              single-line
-              counter
-            />
-          </template>
-        </v-edit-dialog>
-      </template> -->
-      <template v-slot:item.description="{ item }">
-        <div
-          class="d-inline-block text-truncate"
-          style="max-width: 80px;"
-        >
-          {{ item.description }}
-        </div>
-      </template>
-      <template v-slot:item.actions="{ item }">
-        <v-icon
-          small
-          class="mr-2"
-          @click="editItem(item)"
-        >
-          mdi-pencil
-        </v-icon>
-        <v-icon
-          small
-          @click="deleteItem(item)"
-        >
-          mdi-delete
-        </v-icon>
-      </template>
-
+      <!-- INLINE SLOTS -->
       <template
-        v-for="(slot, i) in inlineEditSlots"
+        v-for="(slot, i) in cInlineEditSlots"
         v-slot:[slot]="scope"
       >
         <v-edit-dialog
@@ -301,17 +256,78 @@
             />
           </template>
         </v-edit-dialog>
-        <!-- {{ scope.header.value }} -->
-        <!-- {{ scope.item[scope.header.value] }} -->
       </template>
-      <template v-slot:no-data>
-        <v-btn
-          color="primary"
-          @click="initialize"
+
+      <template v-slot:expanded-item="item">
+        <td
+          colspan="12"
+          class="pa-4"
         >
-          Reset
-        </v-btn>
+          <slot
+            name="expanded-item"
+            :item="item.item"
+          />
+        </td>
       </template>
+      <!-- DESCRIPTION -->
+      <template v-slot:item.description="{ item }">
+        <v-edit-dialog
+          :return-value.sync="item.description"
+          large
+        >
+          <div
+            class="d-inline-block text-truncate"
+            style="max-width: 80px;"
+          >
+            {{ item.description }}
+          </div>
+          <template v-slot:input>
+            <v-textarea
+              v-model="item.description"
+              label="Edit"
+              single-line
+              counter
+            />
+          </template>
+        </v-edit-dialog>
+      </template>
+
+      <!-- ACTIONS -->
+      <template v-slot:item.actions="{ item }">
+        <v-icon
+          small
+          class="mr-2"
+          @click="editItem(item)"
+        >
+          mdi-pencil
+        </v-icon>
+        <v-icon
+          small
+          @click="deleteItem(item)"
+        >
+          mdi-delete
+        </v-icon>
+      </template>
+
+      <!--
+        EDIT NAME INLINE
+        <template v-slot:item.name="{ item }">
+          <v-edit-dialog
+            :return-value.sync="item.name"
+            large
+          >
+            {{ item.name }}
+            <template v-slot:input>
+              <v-text-field
+                v-model="item.name"
+                label="Edit"
+                single-line
+                counter
+              />
+            </template>
+          </v-edit-dialog>
+        </template>
+      -->
     </v-data-table>
   </div>
 </template>
@@ -340,7 +356,7 @@ export default {
   },
   data: () => ({
     search: '',
-    inlineEditSlots: ['item.file', 'item.name', 'item.description', 'item.sku', 'item.img'],
+    // inlineEditSlots: ['item.file', 'item.name', 'item.sku', 'item.img'],
     showSearch: false,
     selectedFilter: [],
     localItems: [],
@@ -352,6 +368,10 @@ export default {
   }),
 
   computed: {
+    cInlineEditSlots () {
+      return Object.keys(this.localItems[0]).map(r => 'item.' + r)
+    },
+
     formTitle () {
       return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
     },

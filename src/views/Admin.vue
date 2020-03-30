@@ -23,20 +23,30 @@
           store-name="products"
           :items="$store.getters['Products/getItems']('products')"
         >
-          <template #item="{ item }">
-            <!-- {{ item }} -->
+          <template #preview-item="{ item }">
+            <MerchandiseItem :item="item" />
+          </template>
+          <template #expanded-item="{ item }">
             <MerchandiseItem :item="item" />
           </template>
         </AdminEditor>
-        <Merchandise />
+        <!-- <Merchandise /> -->
       </v-tab-item>
       <v-tab-item>
         <AdminEditor
           store-name="songs"
           :items="$store.getters['Products/getItems']('songs')"
         >
-          <template #item="{ item }">
-            {{ item }}
+          <template #preview-item="{ item }">
+            <BeatStoreAudio
+              id="100"
+              :title="item.name"
+              :file="`/beats/tagged/${item.file}`"
+              :price="item.price"
+              :buttons="[]"
+            />
+          </template>
+          <template #expanded-item="{ item }">
             <BeatStoreAudio
               id="100"
               :title="item.name"
@@ -46,18 +56,20 @@
             />
           </template>
         </AdminEditor>
-        <BeatStore />
       </v-tab-item>
       <v-tab-item>
         <AdminEditor
           store-name="news"
           :items="$store.getters['Products/getItems']('news')"
         >
-          <template #item="{ item }">
+          <template #preview-item="{ item }">
+            <NewsItem :item="item" />
+          </template>
+          <template #expanded-item="{ item }">
             <NewsItem :item="item" />
           </template>
         </AdminEditor>
-        <News />
+        <!-- <News /> -->
       </v-tab-item>
     </v-tabs>
   </v-card>

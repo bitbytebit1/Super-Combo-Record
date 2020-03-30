@@ -6,11 +6,12 @@
       <v-col
         cols="6"
         sm="2"
+        v-if="item.image"
       >
         <v-img
           contain
-          :src="require('@/assets/scr-footer.png')"
-          :lazy-src="require('@/assets/scr-footer.png')"
+          :src="require(`@/assets/${item.image}`)"
+          :lazy-src="require(`@/assets/${item.image}`)"
           height="150"
           width="180"
           class="ml-3"

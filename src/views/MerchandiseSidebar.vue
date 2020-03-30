@@ -16,7 +16,7 @@
       class="text-capitalize"
     >
       <router-link
-        :to="{name: 'MerchandiseCategory', params: {category: item}}"
+        :to="{name: 'MerchandiseCategory', params: {type: item}}"
         active-class="red--text"
         class="body-2 font-weight-light"
       >
