@@ -81,7 +81,7 @@ html {
 }
 
 .theme--dark.v-application {
-    background: #17181C !important;
+    background: rgba(22,24,28,1) !important;
     color: #FFFFFF;
 }
 
