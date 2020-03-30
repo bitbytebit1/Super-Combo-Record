@@ -1,0 +1,80 @@
+[
+  {
+    "sku": "acid-vice-mp3-tagged",
+    "file": "Acid Vice.mp3",
+    "digital": true,
+    "data-item-file-guid": "",
+    "name": "Acid Vice MP3 Tagged",
+    "type": "music",
+    "subtype": "mp3-tagged",
+    "price": "10",
+    "image": "scr-footer.png",
+    "url": "/product/acid-vice-mp3-tagged",
+    "description": ""
+  },
+  {
+    "sku": "acid-vice-wav-tagged",
+    "file": "Acid Vice.mp3",
+    "digital": true,
+    "data-item-file-guid": "",
+    "name": "Acid Vice WAV Tagged",
+    "type": "music",
+    "subtype": "wav-tagged",
+    "price": "10",
+    "image": "scr-footer.png",
+    "url": "/product/acid-vice-wav-tagged",
+    "description": ""
+  },
+  {
+    "sku": "acid-vice-wav-track-out",
+    "file": "Acid Vice.mp3",
+    "digital": true,
+    "data-item-file-guid": "",
+    "name": "Acid Vice WAV Track Out",
+    "type": "music",
+    "subtype": "wav-track-out",
+    "price": "10",
+    "image": "scr-footer.png",
+    "url": "/product/acid-vice-wav-track-out",
+    "description": ""
+  },
+  {
+    "sku": "devils-piano-mp3-tagged",
+    "file": "Devils Piano.mp3",
+    "digital": true,
+    "data-item-file-guid": "",
+    "name": "Devils Piano MP3 Tagged",
+    "type": "music",
+    "subtype": "mp3-tagged",
+    "price": "10",
+    "image": "scr-footer.png",
+    "url": "/product/devils-piano-mp3-tagged",
+    "description": ""
+  },
+  {
+    "sku": "devils-piano-wav-track-out",
+    "file": "Devils Piano.mp3",
+    "digital": true,
+    "data-item-file-guid": "",
+    "name": "Devils Piano WAV Trackout",
+    "type": "music",
+    "subtype": "wav-track-out",
+    "price": "10",
+    "image": "scr-footer.png",
+    "url": "/product/devils-piano-wav-track-out",
+    "description": ""
+  },
+  {
+    "sku": "devils-piano-wav-tagged",
+    "file": "Devils Piano.mp3",
+    "digital": true,
+    "data-item-file-guid": "",
+    "name": "Devils Piano WAV Tagged",
+    "type": "music",
+    "subtype": "wav-tagged",
+    "price": "10",
+    "image": "scr-footer.png",
+    "url": "/product/devils-piano-wav-tagged",
+    "description": ""
+  }
+]

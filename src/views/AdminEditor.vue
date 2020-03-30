@@ -257,7 +257,7 @@
           </template>
         </v-edit-dialog>
       </template>
-
+      <!-- EXPANDED ITEM SLOT (WRAPS IN TD) -->
       <template v-slot:expanded-item="item">
         <td
           colspan="12"
@@ -268,6 +268,29 @@
             :item="item.item"
           />
         </td>
+      </template>
+      <!-- BUTTONS -->
+      <template v-slot:item.buttons="{ item }">
+        <v-edit-dialog
+          :return-value.sync="item.buttons"
+          large
+        >
+          <div
+            class="d-inline-block text-truncate"
+            style="max-width: 80px;"
+          >
+            {{ item.buttons }}
+          </div>
+          <template v-slot:input>
+            <v-textarea
+              auto-grow
+              :value="123"
+              label="Edit"
+              single-line
+              counter
+            />
+          </template>
+        </v-edit-dialog>
       </template>
       <!-- DESCRIPTION -->
       <template v-slot:item.description="{ item }">
