@@ -2,11 +2,10 @@
   <v-row>
     <v-col
       cols="12"
-      class="display-1 text-uppercase grey--text text-left font-weight-bold"
+      class="text-uppercase grey--text text-left font-weight-bold"
+      :class="cclass"
     >
       {{ title }}
-    </v-col>
-    <v-col cols="12">
       <v-divider />
     </v-col>
   </v-row>
@@ -17,6 +16,10 @@ export default {
     title: {
       type: String,
       default: null
+    },
+    cclass: {
+      type: String,
+      default: 'display-1'
     }
   }
 }
