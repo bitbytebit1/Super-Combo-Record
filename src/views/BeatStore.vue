@@ -42,7 +42,7 @@
           >
             <v-card shaped>
               <v-card-text class="white--text">
-                Exclusive UNLIMITED License available, please make offer(s) <a href="contact.html">here</a><br>
+                Exclusive UNLIMITED Licenses available, please send inqueries <a href="http://supercomborecords.com/contact.html">here</a><br>
               </v-card-text>
               <v-card-text>
                 <b>MP3</b><br>
