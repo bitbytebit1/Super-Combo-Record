@@ -31,10 +31,6 @@
         cols="12"
         md="4"
       >
-        <BaseHeader
-          title="Licenses"
-          cclass="title"
-        />
         <v-row>
           <v-col
             cols="12"
@@ -44,6 +40,10 @@
               <v-card-text class="white--text">
                 Exclusive UNLIMITED Licenses available, please send inqueries <a href="http://supercomborecords.com/contact.html">here</a><br>
               </v-card-text>
+              <BaseHeader
+                title="Licenses"
+                cclass="title px-8"
+              />
               <v-card-text>
                 <b>MP3</b><br>
                 MP3 file Untagged<br>
