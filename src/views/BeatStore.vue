@@ -75,7 +75,6 @@
                 UNLIMITED music video<br>
                 UNLIMITED Radio broadcasting rights<br>
                 Must credit Dean Kau<br>
-                Exclusive UNLIMITED License available, please make offer(s) <a href="contact.html">here</a><br>
               </v-card-text>
             </v-card>
           </v-col>
