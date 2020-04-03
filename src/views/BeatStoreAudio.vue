@@ -1,7 +1,7 @@
 <template>
   <v-card
-    shaped
     :class="isPaused? 'v-card--outlined' : 'v-card--playing'"
+    ref="audioCard"
   >
     <v-card-text
       v-ripple
@@ -99,13 +99,15 @@
           </div>
         </v-speed-dial>
       </div>
+      <!-- EQUALISER -->
       <transition name="fade">
         <av-bars
+          v-if="canvWidth"
           v-show="playing"
           style="position:absolute;bottom:0"
           caps-color="#FFF"
           :bar-color="['#F44336', '#F44336', '#F44336']"
-          :canv-width="264"
+          :canv-width="canvWidth"
           :caps-height="2"
           :audio-src="file"
           :audio-class="`scr-player-${id} d-none`"
@@ -215,6 +217,15 @@ export default {
   components: {
     // Spinner
   },
+  mounted () {
+    // this.audio = this.$refs.player
+    this.resizeCanvas()
+    this.$nextTick(() => {
+      window.addEventListener('resize', this.resizeCanvas, false)
+      this.audio = document.getElementsByClassName('scr-player-' + this.id)[0]
+      this.init()
+    })
+  },
   props: {
     buttons: {
       type: Array,
@@ -268,9 +279,11 @@ export default {
     isPaused () {
       return !this.playing || this.paused
     }
+
   },
   data () {
     return {
+      canvWidth: null,
       purchaseOptions: [
         {
           action: '',
@@ -311,6 +324,10 @@ export default {
     }
   },
   methods: {
+    resizeCanvas () {
+      this.canvWidth = this.$refs.audioCard.$el.clientWidth - 10
+      // this.canvWidth.height = window.innerHeight
+    },
     freeColor (price, text) {
       const r = price === 'Free' ? 'green' : 'red'
       return text ? r + '--text' : r
@@ -362,7 +379,6 @@ export default {
       this.audio.load()
     },
     _handleLoaded: function () {
-      console.log('_handleLoaded')
       if (this.audio.readyState >= 2) {
         if (this.audio.duration === Infinity) {
           // Fix duration for streamed audio source or blob based
@@ -425,17 +441,13 @@ export default {
       this.audio.addEventListener('ended', this._handleEnded)
     }
   },
-  mounted () {
-    // this.audio = this.$refs.player
-    this.audio = document.getElementsByClassName('scr-player-' + this.id)[0]
-    this.init()
-  },
   beforeDestroy () {
     this.audio.removeEventListener('timeupdate', this._handlePlayingUI)
     this.audio.removeEventListener('loadeddata', this._handleLoaded)
     this.audio.removeEventListener('pause', this._handlePlayPause)
     this.audio.removeEventListener('play', this._handlePlayPause)
     this.audio.removeEventListener('ended', this._handleEnded)
+    window.removeEventListener('resize', this.resizeCanvas)
   }
 }
 </script>
