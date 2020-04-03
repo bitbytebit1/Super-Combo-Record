@@ -5,136 +5,127 @@
   >
     <v-row
       align="start"
-      justify="center"
+      justify="start"
       no-gutters
+      v-ripple
+      class="pointer text-left"
+      @click="playing ? pause() : play()"
     >
-      <v-col cols="1">
+      <v-col cols="2">
         <!-- PLAY -->
-        <v-btn
-          class="d-inline-block grey--text text--lighten-4 "
-          x-large
-          icon
-          :disabled="!loaded"
+
+        <transition
+          name="fade"
+          mode="out-in"
         >
-          <transition
-            name="fade"
-            mode="out-in"
+          <v-icon
+            class="ma-4"
           >
-            <v-icon
-              v-if="!playing"
-            >
-              mdi-play
-            </v-icon>
-            <v-icon
-              v-else
-              color="white"
-            >
-              mdi-pause
-            </v-icon>
+            {{ playing? 'mdi-pause': 'mdi-play' }}
+          </v-icon>
           <!-- <Spinner
             v-else
           /> -->
-          </transition>
-        </v-btn>
+        </transition>
       </v-col>
-      <v-col>
+      <v-col cols="10">
         <v-card-text
-          class="text-center pa-0 ma-0 mt-3 white--text text-uppercase title"
+          class="pa-0 pl-3 ma-0 mt-3 white--text text-uppercase title"
         >
           {{ title }}
         </v-card-text>
       </v-col>
+      <v-col cols="12">
+        <v-img
+          height="200"
+          :src="require(`@/assets/${image}`)"
+          :lazy-src="require(`@/assets/${image}`)"
+          class="song-image outlined text-center"
+          style="display:flex;justify-content:center;align-items:center;position:relative"
+        >
+          <!-- PREVIOUS -->
+          <v-btn
+            v-if="showControls"
+            class="d-inline-block white--text mr-2 "
+            outlined
+            icon
+            @click="previous"
+          >
+            <v-icon>
+              mdi-skip-previous
+            </v-icon>
+          </v-btn>
+
+          <!-- NEXT -->
+          <v-btn
+            v-if="showControls"
+            class="d-inline-block white--text ml-2"
+            outlined
+            icon
+            @click="next"
+          >
+            <v-icon>
+              mdi-skip-next
+            </v-icon>
+          </v-btn>
+          <!-- VOLUME -->
+          <div
+            v-if="showControls"
+            id="right"
+            class="hidden-xs-only d"
+            style="displa"
+            @wheel.prevent="onWheel"
+            @click.stop
+          >
+            <v-speed-dial
+              transition="none"
+              open-on-hover
+            >
+              <v-btn
+                slot="activator"
+                fab
+                hover
+                icon
+                outline
+                small
+                @click.stop="toggleMute"
+              >
+                <v-icon>{{ volIcon }}</v-icon>
+              </v-btn>
+              <div
+                class="slider-wrapper ma-0 pa-0"
+              >
+                <input
+                  v-model="volume"
+                  class="vol-slider pointer"
+                  type="range"
+                  min="0"
+                  max="10"
+                  step="0.01"
+                  @input="volumeChange"
+                >
+              </div>
+            </v-speed-dial>
+          </div>
+          <!-- EQUALISER -->
+          <transition name="fade">
+            <av-bars
+              v-if="canvWidth"
+              v-show="playing"
+              style="position:absolute;bottom:-7px;"
+              caps-color="#FFF"
+              :bar-color="['#F44336', '#F44336', '#F44336']"
+              :canv-width="canvWidth"
+              :caps-height="2"
+              :audio-src="file"
+              :audio-class="`scr-player-${id} d-none`"
+            />
+          </transition>
+        </v-img>
+      </v-col>
     </v-row>
     <!-- TITLE -->
 
-    <v-img
-      v-ripple
-      height="200"
-      :src="require(`@/assets/${image}`)"
-      :lazy-src="require(`@/assets/${image}`)"
-      class="song-image outlined text-center"
-      style="display:flex;justify-content:center;align-items:center;position:relative"
-      @click="playing ? pause() : play()"
-    >
-      <!-- PREVIOUS -->
-      <v-btn
-        v-if="showControls"
-        class="d-inline-block white--text mr-2 "
-        outlined
-        icon
-        @click="previous"
-      >
-        <v-icon>
-          mdi-skip-previous
-        </v-icon>
-      </v-btn>
-
-      <!-- NEXT -->
-      <v-btn
-        v-if="showControls"
-        class="d-inline-block white--text ml-2"
-        outlined
-        icon
-        @click="next"
-      >
-        <v-icon>
-          mdi-skip-next
-        </v-icon>
-      </v-btn>
-      <!-- VOLUME -->
-      <div
-        v-if="showControls"
-        id="right"
-        class="hidden-xs-only d"
-        style="displa"
-        @wheel.prevent="onWheel"
-        @click.stop
-      >
-        <v-speed-dial
-          transition="none"
-          open-on-hover
-        >
-          <v-btn
-            slot="activator"
-            fab
-            hover
-            icon
-            outline
-            small
-            @click.stop="toggleMute"
-          >
-            <v-icon>{{ volIcon }}</v-icon>
-          </v-btn>
-          <div
-            class="slider-wrapper ma-0 pa-0"
-          >
-            <input
-              v-model="volume"
-              class="vol-slider pointer"
-              type="range"
-              min="0"
-              max="10"
-              step="0.01"
-              @input="volumeChange"
-            >
-          </div>
-        </v-speed-dial>
-      </div>
-      <!-- EQUALISER -->
-      <transition name="fade">
-        <av-bars
-          v-if="canvWidth"
-          v-show="playing"
-          style="position:absolute;bottom:-7px;"
-          caps-color="#FFF"
-          :bar-color="['#F44336', '#F44336', '#F44336']"
-          :canv-width="canvWidth"
-          :caps-height="2"
-          :audio-src="file"
-          :audio-class="`scr-player-${id} d-none`"
-        />
-      </transition>
-    </v-img>
     <!-- <div style="position: relative;height: 100px;padding-left:5px;">
       <transition name="fade">
         <av-bars
