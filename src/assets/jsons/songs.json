@@ -1,6 +1,7 @@
 [
   {
     "title": "Acid Vice",
+    "image": "Acid Vice.jpg",
     "file": "Acid Vice.mp3",
     "price": [
       "£10",
@@ -15,6 +16,7 @@
   },
   {
     "title": "Devils Piano",
+    "image": "Devils Piano.jpg",
     "file": "Devils Piano.mp3",
     "price": [
       "£10",
@@ -29,6 +31,7 @@
   },
   {
     "title": "Graveyard",
+    "image": "Graveyard.jpg",
     "file": "Graveyard.mp3",
     "price": [
       "£10",
@@ -43,6 +46,7 @@
   },
   {
     "title": "Legendary",
+    "image": "Legendary.jpg",
     "file": "Legendary.mp3",
     "price": [
       "£10",
@@ -57,6 +61,7 @@
   },
   {
     "title": "Lotion",
+    "image": "Lotion.jpg",
     "file": "Lotion.mp3",
     "price": [
       "£10",
@@ -71,6 +76,7 @@
   },
   {
     "title": "Low Lifes",
+    "image": "Low Lifes.jpg",
     "file": "Low Lifes.mp3",
     "price": [
       "£10",
@@ -85,6 +91,7 @@
   },
   {
     "title": "Power House",
+    "image": "Power House.jpg",
     "file": "Power House.mp3",
     "price": [
       "£10",
@@ -99,6 +106,7 @@
   },
   {
     "title": "Sandman",
+    "image": "Sandman.jpg",
     "file": "Sandman.mp3",
     "price": [
       "£10",
@@ -113,6 +121,7 @@
   },
   {
     "title": "Slow ride",
+    "image": "Slow ride.jpg",
     "file": "Slow ride.mp3",
     "price": [
       "£10",
@@ -127,6 +136,7 @@
   },
   {
     "title": "Winning ",
+    "image": "Winning.jpg",
     "file": "Winning.mp3",
     "price": [
       "£10",

@@ -3,9 +3,56 @@
     :class="isPaused? 'v-card--outlined' : 'v-card--playing'"
     ref="audioCard"
   >
-    <v-card-text
+    <v-row
+      align="start"
+      justify="center"
+      no-gutters
+    >
+      <v-col cols="1">
+        <!-- PLAY -->
+        <v-btn
+          class="d-inline-block grey--text text--lighten-4 "
+          x-large
+          icon
+          :disabled="!loaded"
+        >
+          <transition
+            name="fade"
+            mode="out-in"
+          >
+            <v-icon
+              v-if="!playing"
+            >
+              mdi-play
+            </v-icon>
+            <v-icon
+              v-else
+              color="white"
+            >
+              mdi-pause
+            </v-icon>
+          <!-- <Spinner
+            v-else
+          /> -->
+          </transition>
+        </v-btn>
+      </v-col>
+      <v-col>
+        <v-card-text
+          class="text-center pa-0 ma-0 mt-3 white--text text-uppercase title"
+        >
+          {{ title }}
+        </v-card-text>
+      </v-col>
+    </v-row>
+    <!-- TITLE -->
+
+    <v-img
       v-ripple
-      class="song-image outlined"
+      height="200"
+      :src="require(`@/assets/${image}`)"
+      :lazy-src="require(`@/assets/${image}`)"
+      class="song-image outlined text-center"
       style="display:flex;justify-content:center;align-items:center;position:relative"
       @click="playing ? pause() : play()"
     >
@@ -21,33 +68,7 @@
           mdi-skip-previous
         </v-icon>
       </v-btn>
-      <!-- PLAY -->
-      <v-btn
-        class="d-inline-block grey--text text--lighten-4 "
-        x-large
-        icon
-        :disabled="!loaded"
-      >
-        <transition
-          name="fade"
-          mode="out-in"
-        >
-          <v-icon
-            v-if="!playing"
-          >
-            mdi-play
-          </v-icon>
-          <v-icon
-            v-else
-            color="white"
-          >
-            mdi-pause
-          </v-icon>
-          <!-- <Spinner
-            v-else
-          /> -->
-        </transition>
-      </v-btn>
+
       <!-- NEXT -->
       <v-btn
         v-if="showControls"
@@ -104,7 +125,7 @@
         <av-bars
           v-if="canvWidth"
           v-show="playing"
-          style="position:absolute;bottom:0"
+          style="position:absolute;bottom:-7px;"
           caps-color="#FFF"
           :bar-color="['#F44336', '#F44336', '#F44336']"
           :canv-width="canvWidth"
@@ -113,20 +134,27 @@
           :audio-class="`scr-player-${id} d-none`"
         />
       </transition>
-    </v-card-text>
-
-    <!-- TITLE -->
-    <v-card-text
-      v-text="title"
-      class="text-center white--text text-uppercase title"
-    />
-
+    </v-img>
+    <!-- <div style="position: relative;height: 100px;padding-left:5px;">
+      <transition name="fade">
+        <av-bars
+          v-if="canvWidth"
+          v-show="playing"
+          caps-color="#FFF"
+          :bar-color="['#F44336', '#F44336', '#F44336']"
+          :canv-width="canvWidth"
+          :caps-height="2"
+          :audio-src="file"
+          :audio-class="`scr-player-${id} d-none`"
+        />
+      </transition>
+    </div> -->
     <!-- PROGRESS -->
     <v-row
       no-gutters
       justify="center"
       align="center"
-      class="text-center"
+      class="text-center mt-3"
     >
       <!-- CURRENT TIME -->
       <v-col cols="3">
@@ -231,6 +259,10 @@ export default {
       type: Array,
       default: () => []
     },
+    image: {
+      type: [String, Number],
+      default: null
+    },
     id: {
       type: [String, Number],
       default: null
@@ -325,7 +357,7 @@ export default {
   },
   methods: {
     resizeCanvas () {
-      this.canvWidth = this.$refs.audioCard.$el.clientWidth - 10
+      this.canvWidth = (this.$refs.audioCard.$el.clientWidth)
       // this.canvWidth.height = window.innerHeight
     },
     freeColor (price, text) {
