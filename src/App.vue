@@ -1,6 +1,9 @@
 <template>
   <v-app>
-    <BeatStore v-if="$route.name === 'BeatStoreIframe'" />
+    <BeatStore
+      v-if="$route.name === 'BeatStoreIframe'"
+      no-scroll
+    />
     <div v-else>
       <NavBar />
       <v-content>
@@ -31,10 +34,12 @@
 <script>
 import NavBar from '@/components/Navbar.vue'
 import Footer from '@/components/Footer.vue'
+
 import BeatStore from '@/views/BeatStore.vue'
 // import Footer from '@/components/Footer/Footer.vue'
 export default {
   components: {
+
     NavBar,
     Footer,
     BeatStore
@@ -50,9 +55,6 @@ export default {
 }
 </script>
 <style>
-html {
-  overflow-y: hidden !important;
-}
 
 ::-webkit-scrollbar {
     width: 10px;

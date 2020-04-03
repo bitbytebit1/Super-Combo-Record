@@ -96,6 +96,7 @@
 <script>
 import Spinner from '@/components/Spinner.vue'
 export default {
+  name: 'AboutUs',
   components: {
     Spinner
   }

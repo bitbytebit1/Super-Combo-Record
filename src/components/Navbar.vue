@@ -1,5 +1,5 @@
 <template>
-  <v-container id="nav">
+  <v-container class="nav">
     <v-row
       no-gutters=""
       align="center"
@@ -70,13 +70,13 @@ export default {
 </script>
 
 <style>
-#nav {
+.nav {
   min-height: 193px;
 }
-a{
+.nav a{
   text-decoration: none;
 }
-a:not(.router-link-exact-active){
+.nav a:not(.router-link-exact-active){
   color: rgb(215, 215, 215) !important;
 }
 </style>

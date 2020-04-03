@@ -1,7 +1,7 @@
 <template>
   <div>
-    <BaseHeader title="Beat Store" />
-
+    <BaseHeader :title="`Beat Store`" />
+    <NoScroll v-if="noScroll" />
     <v-row>
       <v-col
         md="8"
@@ -19,6 +19,7 @@
             <BeatStoreAudio
               :id="i"
               :title="song.title"
+              :image="`${song.image}`"
               :file="`/beats/tagged/${song.file}`"
               :price="song.price"
               :buttons="song.buttons"
@@ -86,9 +87,17 @@
 
 <script>
 import BeatStoreAudio from './BeatStoreAudio.vue'
+import NoScroll from '@/components/NoScroll.vue'
 export default {
   components: {
-    BeatStoreAudio
+    BeatStoreAudio,
+    NoScroll
+  },
+  props: {
+    noScroll: {
+      type: Boolean,
+      default: false
+    }
   },
   data () {
     return {

@@ -22,7 +22,11 @@
           >
             <v-icon>search</v-icon>
           </v-btn>
-
+          <v-divider
+            class="mx-4 py-5"
+            inset
+            vertical
+          />
           <transition
             name="search-fade"
             mode="out-in"
@@ -33,12 +37,6 @@
               class="d-flex font-weight-thin"
               :key="1"
             >
-              <v-divider
-                class="mx-4"
-                inset
-                vertical
-              />
-
               <v-toolbar-title>
                 Items - {{ localItems.length }}
               </v-toolbar-title>
@@ -178,7 +176,6 @@
                     <v-col
                       cols="12"
                       sm="6"
-                      style="border-right: thin solid rgba(255, 255, 255, 0.12) !important;"
                     >
                       <BaseHeader
                         title="Details"
@@ -203,6 +200,7 @@
                           v-if="i == 'description'"
                           v-model="editedItem[i]"
                           hide-details
+                          style="max-width:400px"
                           dense
                         />
                         <v-text-field
@@ -283,10 +281,10 @@
           </div>
           <template v-slot:input>
             <v-textarea
-              auto-grow
-              :value="123"
+              v-model="item.buttonsModel"
               label="Edit"
-              single-line
+              :value="item.buttons"
+              @change="item.buttons = $event"
               counter
             />
           </template>
@@ -333,7 +331,7 @@
       </template>
 
       <!--
-        EDIT NAME INLINE
+        NAME
         <template v-slot:item.name="{ item }">
           <v-edit-dialog
             :return-value.sync="item.name"
@@ -493,7 +491,7 @@ export default {
 }
 .search-fade-enter-active,
 .search-fade-leave-active {
-  transition: opacity 0.1s ease;
+  transition: opacity 0.05s ease;
 }
 .search-fade-enter {
   opacity: 0;

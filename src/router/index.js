@@ -1,11 +1,11 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 Vue.use(VueRouter)
-
-const routes = [
+/* eslint-disable-next-line */
+let routes = [
   {
     path: '/',
-    redirect: '/about'
+    redirect: '/contact'
   },
   {
     name: 'Contact',
@@ -48,6 +48,10 @@ const routes = [
     path: '/beat-store-iframe',
     name: 'BeatStoreIframe',
     component: () => import(/* webpackChunkName: "BeatStore" */ '../views/BeatStore.vue')
+  },
+  {
+    path: '*',
+    component: () => import(/* webpackChunkName: "AboutUs" */ '@/views/AboutUs.vue')
   }
 ]
 // if (process.env.NODE_ENV === 'development') {
@@ -59,7 +63,7 @@ routes.push(
   }
 )
 // }
-const router = new VueRouter({
+export default new VueRouter({
+  mode: 'hash',
   routes
 })
-export default router
