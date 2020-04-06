@@ -9,8 +9,8 @@
         <v-row>
           <v-col
             cols="12"
-            sm="12"
-            md="6"
+            sm="4"
+            md="4"
             lg="4"
 
             v-for="(song, i) in $store.getters['Products/getItems']('songs')"
