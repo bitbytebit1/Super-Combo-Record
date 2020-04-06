@@ -196,25 +196,29 @@
           nav
           class="v-card--outlined"
         >
-          <v-list-group
+          <v-list-item
             v-for="(item, i) in purchaseOptions"
             :key="i"
+            :href="buttons[i]"
+            active-class="white--text"
           >
-            <template v-slot:activator>
-              <v-list-item-title active-class="white--text">
-                {{ item.title }}
-                <span
-                  v-text="price[i]"
-                  :class="freeColor(price[i], true)"
-                  class="text-center pl-1 "
-                />
-              </v-list-item-title>
-            </template>
-            <div
+            <v-list-item-content>
+              {{ item.title }}
+            </v-list-item-content>
+
+            <v-list-item-action
+              v-text="price[i]"
+              :class="freeColor(price[i], true)"
+              class="text-center pl-1 "
+            />
+          </v-list-item>
+          <!-- <div class="text-center">
+            <a :href="buttons[i]">Add to cart</a>
+          </div> -->
+          <!-- <div
               class="text-center py-4"
               v-html="buttons[i]"
-            />
-          </v-list-group>
+            /> -->
         </v-list>
       </v-menu>
     </div>
