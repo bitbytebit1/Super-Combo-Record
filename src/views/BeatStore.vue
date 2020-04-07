@@ -85,21 +85,15 @@
 
 <script>
 import BeatStoreAudio from './BeatStoreAudio.vue'
-console.log(window.origin)
+console.log(window)
 let theme = () => {}
-if (window.origin === 'https://supercomborecords.com/beatstore.html') {
+if (window.location.href === 'https://supercomborecords.netlify.com/#/beat-store-iframe') {
   theme = () => import('@/styles/no-scroll.css')
 }
 theme()
 export default {
   components: {
     BeatStoreAudio
-  },
-  props: {
-    noScroll: {
-      type: Boolean,
-      default: false
-    }
   },
   data () {
     return {

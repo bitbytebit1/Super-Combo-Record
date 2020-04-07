@@ -2,7 +2,6 @@
   <v-app>
     <BeatStore
       v-if="$route.name === 'BeatStoreIframe'"
-      no-scroll
     />
     <div v-else>
       <NavBar />
