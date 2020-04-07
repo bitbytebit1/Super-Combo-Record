@@ -1,7 +1,6 @@
 <template>
   <div>
     <BaseHeader :title="`Beat Store`" />
-    <NoScroll v-if="noScroll" />
     <v-row>
       <v-col
         md="8"
@@ -86,11 +85,15 @@
 
 <script>
 import BeatStoreAudio from './BeatStoreAudio.vue'
-import NoScroll from '@/components/NoScroll.vue'
+console.log(window.origin)
+let theme = () => {}
+if (window.origin === 'https://supercomborecords.com/beatstore.html') {
+  theme = () => import('@/styles/no-scroll.css')
+}
+theme()
 export default {
   components: {
-    BeatStoreAudio,
-    NoScroll
+    BeatStoreAudio
   },
   props: {
     noScroll: {
